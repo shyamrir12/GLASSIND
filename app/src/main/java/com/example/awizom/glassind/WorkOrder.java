@@ -218,6 +218,9 @@ public class WorkOrder extends AppCompatActivity {
                         Qty = (int) Math.round(Double.parseDouble(columns[7]));
 
                         AreaInSQM = Double.parseDouble(columns[8]);
+
+                        //uploadData.add(new DataWorkOrder("", PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, SizeMm, ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark));
+
                         String cellInfo = "(WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark): (" +
                                 Location + "," + PartyName + "," + PINo + "," + workOrderNo + "," + GlassSpecificationThick + "," + GlassSpecificationColor + "," + GlassSpecificationBTD +
                                 "," + SizeIn + "," + SizeMm + "," + ActualSize + "," + Hole + "," + Cut + "," + Qty + "," + AreaInSQM + "," + OrderDate  + "," + Remark + ")";

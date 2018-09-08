@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "63676086480",
+    "firebase_url": "https://glassinddb.firebaseio.com",
+    "project_id": "glassinddb",
+    "storage_bucket": "glassinddb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63676086480:android:883f16885cbd1c53",
+        "android_client_info": {
+          "package_name": "com.example.awizom.glassind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63676086480-1d0q4o4m3tsrrc9gemn7tfes7pjjaq78.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.awizom.glassind",
+            "certificate_hash": "393143e9971e7b41ca6a82f0c2ea3f52aea94b74"
+          }
+        },
+        {
+          "client_id": "63676086480-pcj54cr2517n5tqoe3gvfqq4j9ssjkmi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBgzeaJA47u1MK9pVX6uyYcnm1HH3cNak"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63676086480-pcj54cr2517n5tqoe3gvfqq4j9ssjkmi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
