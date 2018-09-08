@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class WorkOrder extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -145,6 +146,7 @@ public class WorkOrder extends AppCompatActivity {
                         String value = getCellAsString(row, c, formulaEvaluator);
                         String cellInfo = "r:" + r + "; c:" + c + "; v:" + value;
                         Log.d(TAG, "readExcelData: Data from row: " + cellInfo);
+                        if(value!=null)
                         sb.append(value + ", ");
                     }
                 }
@@ -177,22 +179,41 @@ public class WorkOrder extends AppCompatActivity {
 
             //use try catch to make sure there are no "" that try to parse into doubles.
             try{
-                String PartyName=String.valueOf(columns[0]);
-                String PINo=String.valueOf(columns[1]);
-                String workOrderNo=String.valueOf(columns[2]);
-                String GlassSpecification=String.valueOf(columns[3]);
+                 String WorkingDate=String.valueOf(columns[0]);
+                 String PartyName=String.valueOf(columns[1]);
+                 String Location=String.valueOf(columns[2]);
+                 int PINo=Integer.parseInt(columns[3]);
+                 int workOrderNo=Integer.parseInt(columns[4]);
+                 double GlassSpecificationThick=Double.parseDouble(columns[5]);
+                 String GlassSpecificationColor=String.valueOf(columns[6]);
+                 String GlassSpecificationBTD=String.valueOf(columns[7]);
+                 String SizeIn=String.valueOf(columns[8]);
+                 String SizeMm=String.valueOf(columns[9]);
+                 String ActualSize=String.valueOf(columns[10]);
+                 String Hole=String.valueOf(columns[11]);
+                 String Cut=String.valueOf(columns[12]);
+                int Qty=Integer.parseInt(columns[13]);
+                 double AreaInSQM=Double.parseDouble(columns[14]);
+                String OrderDate=String.valueOf(columns[15]);
+                 double GWaight=Double.parseDouble(columns[16]);
+                 String Remark=String.valueOf(columns[17]);
 
 
-                String cellInfo = "(PartyName,PINo,workOrderNo,GlassSpecification): (" + PartyName + "," + PINo + ","+workOrderNo+","+GlassSpecification+")";
-                Log.d(TAG, "ParseStringBuilder: Data from row: " + cellInfo);
+
+                String cellInfo = "(WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark): ("+
+                        WorkingDate+","+Location+","+PartyName+","+PINo+","+workOrderNo+","+GlassSpecificationThick+","+GlassSpecificationColor+","+GlassSpecificationBTD+
+                        ","+SizeIn+","+SizeMm+","+ActualSize+","+Hole+","+Cut+","+Qty+","+AreaInSQM+","+OrderDate+","+GWaight+","+Remark+")";
+
+               Toast.makeText(this,"ParseStringBuilder: Data from row: " + cellInfo,Toast.LENGTH_SHORT).show();
+              //  Log.d(TAG, "ParseStringBuilder: Data from row: " + cellInfo);
 
                 //add the the uploadData ArrayList
-                uploadData.add(new DataWorkOrder(PartyName,PINo,workOrderNo,GlassSpecification));
+                uploadData.add(new DataWorkOrder(WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark));
 
             }catch (NumberFormatException e){
 
-                Log.e(TAG, "parseStringBuilder: NumberFormatException: " + e.getMessage());
-
+               // Log.e(TAG, "parseStringBuilder: NumberFormatException: " + e.getMessage());
+                Toast.makeText(this,"parseStringBuilder: NumberFormatException: " + e.getMessage(),Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -204,11 +225,28 @@ public class WorkOrder extends AppCompatActivity {
 
         for(int i = 0; i< uploadData.size(); i++){
 
+
+            String WorkingDate=uploadData.get(i).getWorkingDate();
             String PartyName=uploadData.get(i).getPartyName();
-            String PINo=uploadData.get(i).getPINo();
-            String workOrderNo=uploadData.get(i).getWorkOrderNo();
-            String GlassSpecification=uploadData.get(i).getGlassSpecification();
-            Log.d(TAG, "printDataToLog: (PartyName,PINo,workOrderNo,GlassSpecification): (" + PartyName + "," + PINo + ","+workOrderNo+"'"+GlassSpecification+")");
+            String Location=uploadData.get(i).getLocation();
+            int PINo=uploadData.get(i).getPINo();
+            int workOrderNo=uploadData.get(i).getWorkOrderNo();
+            double GlassSpecificationThick=uploadData.get(i).getGlassSpecificationThick();
+            String GlassSpecificationColor=uploadData.get(i).getGlassSpecificationColor();
+            String GlassSpecificationBTD=uploadData.get(i).getGlassSpecificationBTD();
+            String SizeIn=uploadData.get(i).getSizeIn();
+            String SizeMm=uploadData.get(i).getSizeMm();
+            String ActualSize=uploadData.get(i).getActualSize();
+            String Hole=uploadData.get(i).getHole();
+            String Cut=uploadData.get(i).getCut();
+            int Qty=uploadData.get(i).getQty();
+            double AreaInSQM=uploadData.get(i).getAreaInSQM();
+            String OrderDate=uploadData.get(i).getOrderDate();
+            double GWaight=uploadData.get(i).getGWaight();
+            String Remark=uploadData.get(i).getRemark();
+            String GlassSpecification=uploadData.get(i).getGlassSpecificationBTD();
+            //Log.d(TAG, "printDataToLog: (WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark): (" +WorkingDate+","+Location+","+PartyName+","+PINo+","+workOrderNo+","+GlassSpecificationThick+","+GlassSpecificationColor+","+GlassSpecificationBTD+","+SizeIn+","+SizeMm+","+ActualSize+","+Hole+","+Cut+","+Qty+","+AreaInSQM+","+OrderDate+","+GWaight+","+Remark+")");
+            Toast.makeText(this,"printDataToLog: (WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark): (" +WorkingDate+","+Location+","+PartyName+","+PINo+","+workOrderNo+","+GlassSpecificationThick+","+GlassSpecificationColor+","+GlassSpecificationBTD+","+SizeIn+","+SizeMm+","+ActualSize+","+Hole+","+Cut+","+Qty+","+AreaInSQM+","+OrderDate+","+GWaight+","+Remark+")",Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -5,7 +5,7 @@ import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import java.util.Date;
 
 public class DataWorkOrder {
-    public Date WorkingDate;
+    public String WorkingDate;
     public String PartyName;
     public String Location;
     public int PINo;
@@ -18,9 +18,9 @@ public class DataWorkOrder {
     public String ActualSize;
     public String Hole;
     public String Cut;
-    public String Qty;
+    public int Qty;
     public double AreaInSQM;
-    public Date OrderDate;
+    public String OrderDate;
     public double GWaight;
     public String Remark;
     public boolean DEPTCUT;
@@ -31,7 +31,7 @@ public class DataWorkOrder {
     public boolean DEPTDREJECT;
     public String Drawing;
 
-    public DataWorkOrder(Date workingDate, String partyName, String location, int PINo, int workOrderNo, double glassSpecificationThick, String glassSpecificationColor, String glassSpecificationBTD, String sizeIn, String sizeMm, String actualSize, String hole, String cut, String qty, double areaInSQM, Date orderDate, double GWaight, String remark, boolean DEPTCUT, boolean DEPTGRIND, boolean DEPTFAB, boolean DEPTTEMP, boolean DEPTDISP, boolean DEPTDREJECT, String drawing) {
+    public DataWorkOrder(String workingDate, String partyName, String location, int PINo, int workOrderNo, double glassSpecificationThick, String glassSpecificationColor, String glassSpecificationBTD, String sizeIn, String sizeMm, String actualSize, String hole, String cut, int qty, double areaInSQM, String orderDate, double GWaight, String remark, boolean DEPTCUT, boolean DEPTGRIND, boolean DEPTFAB, boolean DEPTTEMP, boolean DEPTDISP, boolean DEPTDREJECT, String drawing) {
         WorkingDate = workingDate;
         PartyName = partyName;
         Location = location;
@@ -59,11 +59,14 @@ public class DataWorkOrder {
         Drawing = drawing;
     }
 
-    public Date getWorkingDate() {
+    public DataWorkOrder(String workingDate, String partyName, String location, int piNo, int workOrderNo, double glassSpecificationThick, String glassSpecificationColor, String glassSpecificationBTD, String sizeIn, String sizeMm, String actualSize, String hole, String cut, int qty, double areaInSQM, String orderDate, double gWaight, String remark) {
+    }
+
+    public String getWorkingDate() {
         return WorkingDate;
     }
 
-    public void setWorkingDate(Date workingDate) {
+    public void setWorkingDate(String workingDate) {
         WorkingDate = workingDate;
     }
 
@@ -163,11 +166,11 @@ public class DataWorkOrder {
         Cut = cut;
     }
 
-    public String getQty() {
+    public int getQty() {
         return Qty;
     }
 
-    public void setQty(String qty) {
+    public void setQty(int qty) {
         Qty = qty;
     }
 
@@ -179,11 +182,11 @@ public class DataWorkOrder {
         AreaInSQM = areaInSQM;
     }
 
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return OrderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(String orderDate) {
         OrderDate = orderDate;
     }
 
