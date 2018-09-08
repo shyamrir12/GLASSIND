@@ -43,7 +43,7 @@ public class WorkOrder extends AppCompatActivity {
     private File[] listFile;
     File file;
 
-    Button btnUpDirectory,btnSDCard;
+    Button btnUpDirectory, btnSDCard;
 
     ArrayList<String> pathHistory;
     String lastDirectory;
@@ -52,6 +52,7 @@ public class WorkOrder extends AppCompatActivity {
     ArrayList<DataWorkOrder> uploadData;
 
     ListView lvInternalStorage;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,16 +69,15 @@ public class WorkOrder extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 lastDirectory = pathHistory.get(count);
-                if(lastDirectory.equals(adapterView.getItemAtPosition(i))){
+                if (lastDirectory.equals(adapterView.getItemAtPosition(i))) {
                     Log.d(TAG, "lvInternalStorage: Selected a file for upload: " + lastDirectory);
 
                     //Execute method for reading the excel data.
                     readExcelData(lastDirectory);
 
-                }else
-                {
+                } else {
                     count++;
-                    pathHistory.add(count,(String) adapterView.getItemAtPosition(i));
+                    pathHistory.add(count, (String) adapterView.getItemAtPosition(i));
                     checkInternalStorage();
                     Log.d(TAG, "lvInternalStorage: " + pathHistory.get(count));
                 }
@@ -88,9 +88,9 @@ public class WorkOrder extends AppCompatActivity {
         btnUpDirectory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(count == 0){
+                if (count == 0) {
                     Log.d(TAG, "btnUpDirectory: You have reached the highest level directory.");
-                }else{
+                } else {
                     pathHistory.remove(count);
                     count--;
                     checkInternalStorage();
@@ -105,7 +105,7 @@ public class WorkOrder extends AppCompatActivity {
             public void onClick(View view) {
                 count = 0;
                 pathHistory = new ArrayList<String>();
-                pathHistory.add(count,System.getenv("EXTERNAL_STORAGE"));
+                pathHistory.add(count, System.getenv("EXTERNAL_STORAGE"));
                 Log.d(TAG, "btnSDCard: " + pathHistory.get(count));
                 checkInternalStorage();
             }
@@ -114,7 +114,8 @@ public class WorkOrder extends AppCompatActivity {
     }
 
     /**
-     *reads the excel file columns then rows. Stores data as ExcelUploadData object
+     * reads the excel file columns then rows. Stores data as ExcelUploadData object
+     *
      * @return
      */
     private void readExcelData(String filePath) {
@@ -138,120 +139,147 @@ public class WorkOrder extends AppCompatActivity {
                 //inner loop, loops through columns
                 for (int c = 0; c < cellsCount; c++) {
                     //handles if there are to many columns on the excel sheet.
-                    if(c>10){
-                       // Log.e(TAG, "readExcelData: ERROR. Excel File Format is incorrect! " );
-                       // toastMessage("ERROR: Excel File Format is incorrect!");
+                    if (c > 10) {
+                        // Log.e(TAG, "readExcelData: ERROR. Excel File Format is incorrect! " );
+                        // toastMessage("ERROR: Excel File Format is incorrect!");
                         break;
-                    }else{
+                    } else {
                         String value = getCellAsString(row, c, formulaEvaluator);
                         String cellInfo = "r:" + r + "; c:" + c + "; v:" + value;
                         Log.d(TAG, "readExcelData: Data from row: " + cellInfo);
-                        if(value!=null)
-                        sb.append(value + ", ");
+                        if (value != null && value.trim().length() != 0)
+                            sb.append(value + ", ");
                     }
                 }
-                sb.append(":");
+                sb.append("#");
             }
             Log.d(TAG, "readExcelData: STRINGBUILDER: " + sb.toString());
 
             parseStringBuilder(sb);
 
-        }catch (FileNotFoundException e) {
-            Log.e(TAG, "readExcelData: FileNotFoundException. " + e.getMessage() );
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "readExcelData: FileNotFoundException. " + e.getMessage());
         } catch (IOException e) {
-            Log.e(TAG, "readExcelData: Error reading inputstream. " + e.getMessage() );
+            Log.e(TAG, "readExcelData: Error reading inputstream. " + e.getMessage());
         }
     }
 
     /**
      * Method for parsing imported data and storing in ArrayList<XYValue>
      */
-    public void parseStringBuilder(StringBuilder mStringBuilder){
+    public void parseStringBuilder(StringBuilder mStringBuilder) {
         Log.d(TAG, "parseStringBuilder: Started parsing.");
 
         // splits the sb into rows.
-        String[] rows = mStringBuilder.toString().split(":");
-
+        String[] rows = mStringBuilder.toString().split("#");
+        int PINo=0, workOrderNo=0,Qty=0;
+        String OrderDate="", PartyName="", Location="",GlassSpecificationColor="",GlassSpecificationBTD="",SizeIn="",SizeMm="",ActualSize="",Hole="",Cut="",Remark="";
+        double GlassSpecificationThick=0, AreaInSQM=0;
         //Add to the ArrayList<XYValue> row by row
-        for(int i=0; i<rows.length; i++) {
+        for (int i = 0; i < rows.length; i++) {
             //Split the columns of the rows
             String[] columns = rows[i].split(",");
 
             //use try catch to make sure there are no "" that try to parse into doubles.
-            try{
-                 String WorkingDate=String.valueOf(columns[0]);
-                 String PartyName=String.valueOf(columns[1]);
-                 String Location=String.valueOf(columns[2]);
-                 int PINo=Integer.parseInt(columns[3]);
-                 int workOrderNo=Integer.parseInt(columns[4]);
-                 double GlassSpecificationThick=Double.parseDouble(columns[5]);
-                 String GlassSpecificationColor=String.valueOf(columns[6]);
-                 String GlassSpecificationBTD=String.valueOf(columns[7]);
-                 String SizeIn=String.valueOf(columns[8]);
-                 String SizeMm=String.valueOf(columns[9]);
-                 String ActualSize=String.valueOf(columns[10]);
-                 String Hole=String.valueOf(columns[11]);
-                 String Cut=String.valueOf(columns[12]);
-                int Qty=Integer.parseInt(columns[13]);
-                 double AreaInSQM=Double.parseDouble(columns[14]);
-                String OrderDate=String.valueOf(columns[15]);
-                 double GWaight=Double.parseDouble(columns[16]);
-                 String Remark=String.valueOf(columns[17]);
+            try {
+                if (i == 0) {
+                    String workid = columns[0].split("/")[0];
+                    String pid = columns[0].split("/")[1];
+                    PINo = Integer.parseInt(pid.trim().split("-")[1]);
+                    workOrderNo = Integer.parseInt(workid.trim().split("-")[1]);
+                    String workorderdate = columns[3].split(":")[1];
+                    OrderDate = workorderdate.trim();
+                }
+                if (i == 2) {
+                    String partyname = columns[1].split("\n")[1];
+                    String location = columns[2].split("\n")[0];
+                    PartyName = partyname.trim();
+                    Location = location.trim();
+                }
+
+                if (i >= 6) {
+
+                    if(String.valueOf(columns[0]).trim().equals("Grand Total")) {
+                        break;
+                    }
+                    else {
+                        String[] glassSpecification = columns[1].split("\\s+");
+                        //String glassSpecificationThick = columns[1].split(" ")[0];
+                        //String glassSpecificationColor = columns[1].split(" ")[0];
+
+                        GlassSpecificationThick = Double.parseDouble(glassSpecification[1].trim().split("M")[0]);
+                        GlassSpecificationColor = String.valueOf(glassSpecification[2]);
+                        GlassSpecificationBTD = String.valueOf(columns[2]);
+                        SizeIn = String.valueOf(columns[3]);
+
+                        ActualSize = String.valueOf(columns[4]);
+                        Hole = String.valueOf(columns[5]);
+                        Cut = String.valueOf(columns[6]);
+                        Qty = (int) Math.round(Double.parseDouble(columns[7]));
+
+                        AreaInSQM = Double.parseDouble(columns[8]);
+                        String cellInfo = "(WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark): (" +
+                                Location + "," + PartyName + "," + PINo + "," + workOrderNo + "," + GlassSpecificationThick + "," + GlassSpecificationColor + "," + GlassSpecificationBTD +
+                                "," + SizeIn + "," + SizeMm + "," + ActualSize + "," + Hole + "," + Cut + "," + Qty + "," + AreaInSQM + "," + OrderDate  + "," + Remark + ")";
+
+                        Toast.makeText(this, "ParseStringBuilder: Data from row: " + cellInfo, Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }
 
 
 
-                String cellInfo = "(WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark): ("+
-                        WorkingDate+","+Location+","+PartyName+","+PINo+","+workOrderNo+","+GlassSpecificationThick+","+GlassSpecificationColor+","+GlassSpecificationBTD+
-                        ","+SizeIn+","+SizeMm+","+ActualSize+","+Hole+","+Cut+","+Qty+","+AreaInSQM+","+OrderDate+","+GWaight+","+Remark+")";
+               //Toast.makeText(this, "ParseStringBuilder: Data from row: " + cellInfo, Toast.LENGTH_SHORT).show();
 
-               Toast.makeText(this,"ParseStringBuilder: Data from row: " + cellInfo,Toast.LENGTH_SHORT).show();
-              //  Log.d(TAG, "ParseStringBuilder: Data from row: " + cellInfo);
+                  // Log.d(TAG, "ParseStringBuilder: Data from row: " + cellInfo);
 
                 //add the the uploadData ArrayList
-                uploadData.add(new DataWorkOrder(WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark));
+               // uploadData.add(new DataWorkOrder("", PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, SizeMm, ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark));
 
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
 
-               // Log.e(TAG, "parseStringBuilder: NumberFormatException: " + e.getMessage());
-                Toast.makeText(this,"parseStringBuilder: NumberFormatException: " + e.getMessage(),Toast.LENGTH_SHORT).show();
+                 Log.e(TAG, "parseStringBuilder: NumberFormatException: " + e.getMessage());
+               // Toast.makeText(this, "parseStringBuilder: NumberFormatException: " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
 
-        printDataToLog();
+        //printDataToLog();
     }
 
     private void printDataToLog() {
         Log.d(TAG, "printDataToLog: Printing data to log...");
 
-        for(int i = 0; i< uploadData.size(); i++){
+        for (int i = 0; i < uploadData.size(); i++) {
 
 
-            String WorkingDate=uploadData.get(i).getWorkingDate();
-            String PartyName=uploadData.get(i).getPartyName();
-            String Location=uploadData.get(i).getLocation();
-            int PINo=uploadData.get(i).getPINo();
-            int workOrderNo=uploadData.get(i).getWorkOrderNo();
-            double GlassSpecificationThick=uploadData.get(i).getGlassSpecificationThick();
-            String GlassSpecificationColor=uploadData.get(i).getGlassSpecificationColor();
-            String GlassSpecificationBTD=uploadData.get(i).getGlassSpecificationBTD();
-            String SizeIn=uploadData.get(i).getSizeIn();
-            String SizeMm=uploadData.get(i).getSizeMm();
-            String ActualSize=uploadData.get(i).getActualSize();
-            String Hole=uploadData.get(i).getHole();
-            String Cut=uploadData.get(i).getCut();
-            int Qty=uploadData.get(i).getQty();
-            double AreaInSQM=uploadData.get(i).getAreaInSQM();
-            String OrderDate=uploadData.get(i).getOrderDate();
-            double GWaight=uploadData.get(i).getGWaight();
-            String Remark=uploadData.get(i).getRemark();
-            String GlassSpecification=uploadData.get(i).getGlassSpecificationBTD();
+            String WorkingDate = uploadData.get(i).getWorkingDate();
+            String PartyName = uploadData.get(i).getPartyName();
+            String Location = uploadData.get(i).getLocation();
+            int PINo = uploadData.get(i).getPINo();
+            int workOrderNo = uploadData.get(i).getWorkOrderNo();
+            double GlassSpecificationThick = uploadData.get(i).getGlassSpecificationThick();
+            String GlassSpecificationColor = uploadData.get(i).getGlassSpecificationColor();
+            String GlassSpecificationBTD = uploadData.get(i).getGlassSpecificationBTD();
+            String SizeIn = uploadData.get(i).getSizeIn();
+            String SizeMm = uploadData.get(i).getSizeMm();
+            String ActualSize = uploadData.get(i).getActualSize();
+            String Hole = uploadData.get(i).getHole();
+            String Cut = uploadData.get(i).getCut();
+            int Qty = uploadData.get(i).getQty();
+            double AreaInSQM = uploadData.get(i).getAreaInSQM();
+            String OrderDate = uploadData.get(i).getOrderDate();
+            double GWaight = uploadData.get(i).getGWaight();
+            String Remark = uploadData.get(i).getRemark();
+            String GlassSpecification = uploadData.get(i).getGlassSpecificationBTD();
             //Log.d(TAG, "printDataToLog: (WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark): (" +WorkingDate+","+Location+","+PartyName+","+PINo+","+workOrderNo+","+GlassSpecificationThick+","+GlassSpecificationColor+","+GlassSpecificationBTD+","+SizeIn+","+SizeMm+","+ActualSize+","+Hole+","+Cut+","+Qty+","+AreaInSQM+","+OrderDate+","+GWaight+","+Remark+")");
-            Toast.makeText(this,"printDataToLog: (WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark): (" +WorkingDate+","+Location+","+PartyName+","+PINo+","+workOrderNo+","+GlassSpecificationThick+","+GlassSpecificationColor+","+GlassSpecificationBTD+","+SizeIn+","+SizeMm+","+ActualSize+","+Hole+","+Cut+","+Qty+","+AreaInSQM+","+OrderDate+","+GWaight+","+Remark+")",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "printDataToLog: (WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark): (" + WorkingDate + "," + Location + "," + PartyName + "," + PINo + "," + workOrderNo + "," + GlassSpecificationThick + "," + GlassSpecificationColor + "," + GlassSpecificationBTD + "," + SizeIn + "," + SizeMm + "," + ActualSize + "," + Hole + "," + Cut + "," + Qty + "," + AreaInSQM + "," + OrderDate + "," + GWaight + "," + Remark + ")", Toast.LENGTH_LONG).show();
         }
     }
 
     /**
      * Returns the cell as a string from the excel file
+     *
      * @param row
      * @param c
      * @param formulaEvaluator
@@ -264,39 +292,38 @@ public class WorkOrder extends AppCompatActivity {
             CellValue cellValue = formulaEvaluator.evaluate(cell);
             switch (cellValue.getCellType()) {
                 case Cell.CELL_TYPE_BOOLEAN:
-                    value = ""+cellValue.getBooleanValue();
+                    value = "" + cellValue.getBooleanValue();
                     break;
                 case Cell.CELL_TYPE_NUMERIC:
                     double numericValue = cellValue.getNumberValue();
-                    if(HSSFDateUtil.isCellDateFormatted(cell)) {
+                    if (HSSFDateUtil.isCellDateFormatted(cell)) {
                         double date = cellValue.getNumberValue();
                         SimpleDateFormat formatter =
                                 new SimpleDateFormat("MM/dd/yy");
                         value = formatter.format(HSSFDateUtil.getJavaDate(date));
                     } else {
-                        value = ""+numericValue;
+                        value = "" + numericValue;
                     }
                     break;
                 case Cell.CELL_TYPE_STRING:
-                    value = ""+cellValue.getStringValue();
+                    value = "" + cellValue.getStringValue();
                     break;
                 default:
             }
         } catch (NullPointerException e) {
 
-            Log.e(TAG, "getCellAsString: NullPointerException: " + e.getMessage() );
+            Log.e(TAG, "getCellAsString: NullPointerException: " + e.getMessage());
         }
         return value;
     }
 
     private void checkInternalStorage() {
         Log.d(TAG, "checkInternalStorage: Started.");
-        try{
+        try {
             if (!Environment.getExternalStorageState().equals(
                     Environment.MEDIA_MOUNTED)) {
                 toastMessage("No SD card found.");
-            }
-            else{
+            } else {
                 // Locate the image folder in your SD Car;d
                 file = new File(pathHistory.get(count));
                 Log.d(TAG, "checkInternalStorage: directory path: " + pathHistory.get(count));
@@ -317,39 +344,39 @@ public class WorkOrder extends AppCompatActivity {
                 FileNameStrings[i] = listFile[i].getName();
             }
 
-            for (int i = 0; i < listFile.length; i++)
-            {
+            for (int i = 0; i < listFile.length; i++) {
                 Log.d("Files", "FileName:" + listFile[i].getName());
             }
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, FilePathStrings);
             lvInternalStorage.setAdapter(adapter);
 
-        }catch(NullPointerException e){
-            Log.e(TAG, "checkInternalStorage: NULLPOINTEREXCEPTION " + e.getMessage() );
+        } catch (NullPointerException e) {
+            Log.e(TAG, "checkInternalStorage: NULLPOINTEREXCEPTION " + e.getMessage());
         }
     }
 
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void checkFilePermissions() {
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             int permissionCheck = this.checkSelfPermission("Manifest.permission.READ_EXTERNAL_STORAGE");
             permissionCheck += this.checkSelfPermission("Manifest.permission.WRITE_EXTERNAL_STORAGE");
             if (permissionCheck != 0) {
                 this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1001); //Any number
             }
-        }else{
+        } else {
             Log.d(TAG, "checkBTPermissions: No need to check permissions. SDK version < LOLLIPOP.");
         }
     }
 
     /**
      * customizable toast
+     *
      * @param message
      */
-    private void toastMessage(String message){
-        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    private void toastMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
 }
