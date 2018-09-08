@@ -299,7 +299,7 @@ public class WorkOrder extends AppCompatActivity {
                     if (HSSFDateUtil.isCellDateFormatted(cell)) {
                         double date = cellValue.getNumberValue();
                         SimpleDateFormat formatter =
-                                new SimpleDateFormat("MM/dd/yy");
+                                new SimpleDateFormat("MM/dd/yy");//retert
                         value = formatter.format(HSSFDateUtil.getJavaDate(date));
                     } else {
                         value = "" + numericValue;
