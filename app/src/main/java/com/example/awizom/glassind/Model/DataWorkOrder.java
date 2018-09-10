@@ -1,35 +1,43 @@
 package com.example.awizom.glassind.Model;
-
+import com.google.firebase.database.IgnoreExtraProperties;
 import org.apache.xmlbeans.impl.xb.xsdschema.Public;
-
 import java.util.Date;
 
 public class DataWorkOrder {
-    public String WorkingDate;
-    public String PartyName;
-    public String Location;
-    public int PINo;
-    public int workOrderNo;
-    public double GlassSpecificationThick;
-    public String GlassSpecificationColor;
-    public String GlassSpecificationBTD;
-    public String SizeIn;
-    public String SizeMm;
-    public String ActualSize;
-    public String Hole;
-    public String Cut;
-    public int Qty;
-    public double AreaInSQM;
-    public String OrderDate;
-    public double GWaight;
-    public String Remark;
-    public boolean DEPTCUT;
-    public boolean DEPTGRIND;
-    public boolean DEPTFAB;
-    public boolean DEPTTEMP;
-    public boolean DEPTDISP;
-    public boolean DEPTDREJECT;
-    public String Drawing;
+    private String Id;
+    private String WorkingDate;
+    private String PartyName;
+    private String Location;
+    private int PINo;
+    private int workOrderNo;
+    private double GlassSpecificationThick;
+    private String GlassSpecificationColor;
+    private String GlassSpecificationBTD;
+    private String SizeIn;
+    private String SizeMm;
+    private String ActualSize;
+    private String Hole;
+    private String Cut;
+    private int Qty;
+    private double AreaInSQM;
+    private String OrderDate;
+    private double GWaight;
+    private String Remark;
+    private boolean DEPTCUT;
+    private boolean DEPTGRIND;
+    private boolean DEPTFAB;
+    private boolean DEPTTEMP;
+    private boolean DEPTDISP;
+    private boolean DEPTDREJECT;
+    private String Drawing;
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
 
     public DataWorkOrder(String workingDate, String partyName, String location, int PINo, int workOrderNo, double glassSpecificationThick, String glassSpecificationColor, String glassSpecificationBTD, String sizeIn, String sizeMm, String actualSize, String hole, String cut, int qty, double areaInSQM, String orderDate, double GWaight, String remark, boolean DEPTCUT, boolean DEPTGRIND, boolean DEPTFAB, boolean DEPTTEMP, boolean DEPTDISP, boolean DEPTDREJECT, String drawing) {
         WorkingDate = workingDate;
@@ -59,7 +67,32 @@ public class DataWorkOrder {
         Drawing = drawing;
     }
 
-    public DataWorkOrder(String workingDate, String partyName, String location, int piNo, int workOrderNo, double glassSpecificationThick, String glassSpecificationColor, String glassSpecificationBTD, String sizeIn, String sizeMm, String actualSize, String hole, String cut, int qty, double areaInSQM, String orderDate, double gWaight, String remark) {
+    public DataWorkOrder(String workingDate, String partyName, String location, int PINo, int workOrderNo, double glassSpecificationThick, String glassSpecificationColor, String glassSpecificationBTD, String sizeIn, String sizeMm, String actualSize, String hole, String cut, int qty, double areaInSQM, String orderDate, double gWaight, String remark) {
+        WorkingDate = workingDate;
+        PartyName = partyName;
+        Location = location;
+        this.PINo = PINo;
+        this.workOrderNo = workOrderNo;
+        GlassSpecificationThick = glassSpecificationThick;
+        GlassSpecificationColor = glassSpecificationColor;
+        GlassSpecificationBTD = glassSpecificationBTD;
+        SizeIn = sizeIn;
+        SizeMm = sizeMm;
+        ActualSize = actualSize;
+        Hole = hole;
+        Cut = cut;
+        Qty = qty;
+        AreaInSQM = areaInSQM;
+        OrderDate = orderDate;
+        this.GWaight = GWaight;
+        Remark = remark;
+        this.DEPTCUT = DEPTCUT;
+        this.DEPTGRIND = DEPTGRIND;
+        this.DEPTFAB = DEPTFAB;
+        this.DEPTTEMP = DEPTTEMP;
+        this.DEPTDISP = DEPTDISP;
+        this.DEPTDREJECT = DEPTDREJECT;
+        this.Drawing = Drawing;
     }
 
     public String getWorkingDate() {

@@ -5,17 +5,23 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.awizom.glassind.Model.DataWorkOrder;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
@@ -36,7 +42,7 @@ import java.util.Date;
 
 public class WorkOrder extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-
+    DatabaseReference dataorder;
     // Declare variables
     private String[] FilePathStrings;
     private String[] FileNameStrings;
@@ -50,7 +56,7 @@ public class WorkOrder extends AppCompatActivity {
     int count = 0;
 
     ArrayList<DataWorkOrder> uploadData;
-
+    DataWorkOrder addWorkorder;
     ListView lvInternalStorage;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -218,14 +224,14 @@ public class WorkOrder extends AppCompatActivity {
                         Qty = (int) Math.round(Double.parseDouble(columns[7]));
 
                         AreaInSQM = Double.parseDouble(columns[8]);
+                        addWorkorder=new DataWorkOrder("", PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, SizeMm, ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark);
+                       // uploadData.add(new DataWorkOrder("", PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, SizeMm, ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark));
+                        showUpdateDeleteDialog();
+                     //   String cellInfo = "(WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark): (" +
+                       //         Location + "," + PartyName + "," + PINo + "," + workOrderNo + "," + GlassSpecificationThick + "," + GlassSpecificationColor + "," + GlassSpecificationBTD +
+                      //          "," + SizeIn + "," + SizeMm + "," + ActualSize + "," + Hole + "," + Cut + "," + Qty + "," + AreaInSQM + "," + OrderDate  + "," + Remark + ")";
 
-                        //uploadData.add(new DataWorkOrder("", PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, SizeMm, ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark));
-
-                        String cellInfo = "(WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark): (" +
-                                Location + "," + PartyName + "," + PINo + "," + workOrderNo + "," + GlassSpecificationThick + "," + GlassSpecificationColor + "," + GlassSpecificationBTD +
-                                "," + SizeIn + "," + SizeMm + "," + ActualSize + "," + Hole + "," + Cut + "," + Qty + "," + AreaInSQM + "," + OrderDate  + "," + Remark + ")";
-
-                        Toast.makeText(this, "ParseStringBuilder: Data from row: " + cellInfo, Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(this, "ParseStringBuilder: Data from row: " + cellInfo, Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -249,7 +255,112 @@ public class WorkOrder extends AppCompatActivity {
 
         //printDataToLog();
     }
+    private void showUpdateDeleteDialog() {
 
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.order_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText editTextWorkingDate = (EditText) dialogView.findViewById(R.id.editTextWorkingDate);
+        final EditText editTextPartyName = (EditText) dialogView.findViewById(R.id.editTextPartyName);
+        final EditText editTextLocation = (EditText) dialogView.findViewById(R.id.editTextLocation);
+        final EditText editTextPINo = (EditText) dialogView.findViewById(R.id.editTextPINo);
+        final EditText editTextworkOrderNo = (EditText) dialogView.findViewById(R.id.editTextworkOrderNo);
+        final EditText editTextThick = (EditText) dialogView.findViewById(R.id.editTextThick);
+        final EditText editTextColor = (EditText) dialogView.findViewById(R.id.editTextColor);
+        final EditText editTextBTD = (EditText) dialogView.findViewById(R.id.editTextBTD);
+        final EditText editTextSizeIn = (EditText) dialogView.findViewById(R.id.editTextSizeIn);
+        final EditText editTextActualSize = (EditText) dialogView.findViewById(R.id.editTextActualSize);
+        final EditText editTextHole = (EditText) dialogView.findViewById(R.id.editTextHole);
+        final EditText editTextCut = (EditText) dialogView.findViewById(R.id.editTextCut);
+        final EditText editTextQty = (EditText) dialogView.findViewById(R.id.editTextQty);
+        final EditText editTextAreaInSQM= (EditText) dialogView.findViewById(R.id.editTextAreaInSQM);
+        final EditText editTextOrderDate = (EditText) dialogView.findViewById(R.id.editTextOrderDate);
+        final EditText editTextWeight = (EditText) dialogView.findViewById(R.id.editTextWeight);
+        final EditText editTextRemark = (EditText) dialogView.findViewById(R.id.editTextRemark);
+
+        editTextWorkingDate.setText(addWorkorder.getWorkingDate());
+        editTextPartyName.setText(addWorkorder.getPartyName());
+        editTextLocation.setText(addWorkorder.getLocation());
+        editTextPINo.setText(Integer.toString( addWorkorder.getPINo()));
+        editTextworkOrderNo.setText(Integer.toString(  addWorkorder.getWorkOrderNo()));
+        editTextThick.setText(Double.toString( addWorkorder.getGlassSpecificationThick()));
+        editTextColor.setText( addWorkorder.getGlassSpecificationColor());
+        editTextBTD.setText(addWorkorder.getGlassSpecificationBTD());
+        editTextSizeIn.setText(addWorkorder.getSizeIn());
+        editTextActualSize.setText(addWorkorder.getActualSize());
+        editTextHole.setText(addWorkorder.getHole());
+        editTextCut.setText(addWorkorder.getCut());
+        editTextQty.setText(Integer.toString( addWorkorder.getQty()));
+        editTextAreaInSQM.setText(Double.toString(addWorkorder.getAreaInSQM()));
+        editTextOrderDate.setText(addWorkorder.getOrderDate());
+        editTextWeight.setText(Double.toString(addWorkorder.getGWaight()));
+        editTextRemark.setText(addWorkorder.getRemark());
+
+
+
+        final Button buttonAdd = (Button) dialogView.findViewById(R.id.buttonAddOrder);
+        final Button buttonCancel = (Button) dialogView.findViewById(R.id.buttonCancel);
+
+        dialogBuilder.setTitle("Add Order");
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String WorkingDate = editTextWorkingDate.getText().toString().trim();
+                String PartyName = editTextPartyName.getText().toString().trim();
+                String Location = editTextLocation.getText().toString().trim();
+                int PINo = Integer.parseInt( editTextPINo.getText().toString().trim());
+                int workOrderNo =Integer.parseInt( editTextworkOrderNo.getText().toString().trim());
+                double GlassSpecificationThick =Double.parseDouble( editTextThick.getText().toString().trim());
+                String GlassSpecificationColor = editTextColor.getText().toString().trim();
+                String GlassSpecificationBTD = editTextBTD.getText().toString().trim();
+                String SizeIn = editTextSizeIn.getText().toString().trim();
+                //String SizeMm = editTextSizeMm.getText().toString().trim();
+                String ActualSize =  editTextActualSize.getText().toString().trim();
+                String Hole = editTextHole.getText().toString().trim();
+                String Cut =  editTextCut.getText().toString().trim();
+                int Qty = Integer.parseInt( editTextQty.getText().toString().trim());
+                double AreaInSQM =Double.parseDouble( editTextAreaInSQM.getText().toString().trim());
+                String OrderDate =  editTextOrderDate.getText().toString().trim();
+                double GWaight = Double.parseDouble( editTextWeight.getText().toString().trim());
+                String Remark = editTextRemark.getText().toString().trim();
+                addWorkorder=new DataWorkOrder(WorkingDate, PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, "0", ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark);
+
+                if (!TextUtils.isEmpty(WorkingDate)) {
+                    addOrder(addWorkorder);
+                    b.dismiss();
+                }
+            }
+
+
+        });
+
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                b.dismiss();
+                /*
+                 * we will code this method to delete the artist
+                 * */
+
+            }
+        });
+    }
+    private boolean addOrder(DataWorkOrder finalWorkorder) {
+        //getting the specified artist reference
+        dataorder = FirebaseDatabase.getInstance().getReference("orders");
+        String id = dataorder.push().getKey();
+        finalWorkorder.setId(id);
+        dataorder.child(id).setValue(finalWorkorder);
+        Toast.makeText(getApplicationContext(), "Order Added", Toast.LENGTH_LONG).show();
+        return true;
+    }
     private void printDataToLog() {
         Log.d(TAG, "printDataToLog: Printing data to log...");
 
