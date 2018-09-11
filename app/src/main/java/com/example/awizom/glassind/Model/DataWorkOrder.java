@@ -3,7 +3,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import java.util.Date;
 
-public class DataWorkOrder {
+public  class DataWorkOrder {
     private String Id;
     private String WorkingDate;
     private String PartyName;
@@ -37,6 +37,9 @@ public class DataWorkOrder {
 
     public void setId(String id) {
         Id = id;
+    }
+
+    public DataWorkOrder() {
     }
 
     public DataWorkOrder(String workingDate, String partyName, String location, int PINo, int workOrderNo, double glassSpecificationThick, String glassSpecificationColor, String glassSpecificationBTD, String sizeIn, String sizeMm, String actualSize, String hole, String cut, int qty, double areaInSQM, String orderDate, double GWaight, String remark, boolean DEPTCUT, boolean DEPTGRIND, boolean DEPTFAB, boolean DEPTTEMP, boolean DEPTDISP, boolean DEPTDREJECT, String drawing) {

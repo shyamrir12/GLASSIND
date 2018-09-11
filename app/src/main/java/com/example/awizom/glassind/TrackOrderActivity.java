@@ -1,11 +1,16 @@
 package com.example.awizom.glassind;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
+import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.awizom.glassind.Adapters.OrderAdapter;
@@ -16,14 +21,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class TrackOrderActivity extends AppCompatActivity {
+public class TrackOrderActivity extends AppCompatActivity   {
     RecyclerView recyclerView;
     ProgressDialog progressDialog ;
     DatabaseReference dataorder;
     List<DataWorkOrder> orderList;
     OrderAdapter adapter;
+    int CAMRA_REQUEST_CODE=0;
+    String filename="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,14 +39,12 @@ public class TrackOrderActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         progressDialog = new ProgressDialog(this);
+        orderList=new ArrayList<>();
         getOrder();
-
     }
 
     private void getOrder() {
-
         try {
             //String res="";
             progressDialog.setMessage("loading...");
@@ -48,7 +54,6 @@ public class TrackOrderActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                    orderList.clear();
-
                     //iterating through all the nodes
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         //getting artist
@@ -56,23 +61,19 @@ public class TrackOrderActivity extends AppCompatActivity {
                         //adding artist to the list
                         orderList.add(order);
                     }
-
                     //creating adapter
                     adapter=new OrderAdapter(TrackOrderActivity.this, orderList);
-
                     //attaching adapter to the listview
                     recyclerView.setAdapter(adapter);
+                    progressDialog.dismiss();
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    progressDialog.dismiss();
                 }
             });
          //   new MyCourse.GETCourseList().execute(SharedPrefManager.getInstance(this).getUser().access_token);
          //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
-
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,4 +82,6 @@ public class TrackOrderActivity extends AppCompatActivity {
             // System.out.println("Error: " + e);
         }
     }
+
+
 }
