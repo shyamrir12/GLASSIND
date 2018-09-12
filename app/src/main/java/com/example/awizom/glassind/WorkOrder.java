@@ -224,7 +224,7 @@ public class WorkOrder extends AppCompatActivity {
                         Qty = (int) Math.round(Double.parseDouble(columns[7]));
 
                         AreaInSQM = Double.parseDouble(columns[8]);
-                        addWorkorder=new DataWorkOrder("", PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, SizeMm, ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark);
+                        addWorkorder=new DataWorkOrder("", PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, SizeMm, ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark,"");
                        // uploadData.add(new DataWorkOrder("", PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, SizeMm, ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark));
                         showUpdateDeleteDialog();
                      //   String cellInfo = "(WorkingDate,PartyName,Location,PINo,workOrderNo,GlassSpecificationThick,GlassSpecificationColor,GlassSpecificationBTD,SizeIn,SizeMm,ActualSize,Hole,Cut,Qty,AreaInSQM,OrderDate,GWaight,Remark): (" +
@@ -329,7 +329,7 @@ public class WorkOrder extends AppCompatActivity {
                 String OrderDate =  editTextOrderDate.getText().toString().trim();
                 double GWaight = Double.parseDouble( editTextWeight.getText().toString().trim());
                 String Remark = editTextRemark.getText().toString().trim();
-                addWorkorder=new DataWorkOrder(WorkingDate, PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, "0", ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark);
+                addWorkorder=new DataWorkOrder(WorkingDate, PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, "0", ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark,"");
 
                 if (!TextUtils.isEmpty(WorkingDate)) {
                     addOrder(addWorkorder);

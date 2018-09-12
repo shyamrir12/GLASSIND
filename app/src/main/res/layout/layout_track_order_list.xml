@@ -17,174 +17,315 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="140dp"
-                android:layout_height="100dp"
+                android:layout_height="141dp"
                 android:scaleType="fitXY" />
+
             <LinearLayout
+                android:id="@+id/l1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_toRightOf="@id/imageView"
-                android:id="@+id/l1">
-                <EditText
-                    android:id="@+id/editTextWorkingDate"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:hint="Working Date" />
+                android:orientation="horizontal"
+                android:padding="8dp">
 
-                <EditText
-                    android:id="@+id/editTextPartyName"
+
+                <TextView
+                    android:id="@+id/textViewPartyName"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:hint="Party Name" />
 
-                <EditText
-                    android:id="@+id/editTextLocation"
+                <TextView
+                    android:id="@+id/textViewLocation"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:hint="Location" />
-                <EditText
-                    android:id="@+id/editTextPINo"
+
+                <TextView
+                    android:id="@+id/textViewOrderDate"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Order Date" />
+
+                <TextView
+                    android:id="@+id/textViewPINo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:hint="PINo" />
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@id/l1"
-                android:layout_toRightOf="@id/imageView"
-                android:id="@+id/L2"
-
-              >
-
-                <EditText
-                    android:id="@+id/editTextworkOrderNo"
+                <TextView
+                    android:id="@+id/textViewworkOrderNo"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:hint="work Order No" />
 
-                <EditText
-                    android:id="@+id/editTextThick"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:hint="Thick" />
-                <EditText
-                    android:id="@+id/editTextColor"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:hint="Color" />
-
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/L2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@id/L2"
+                android:layout_below="@id/l1"
                 android:layout_toRightOf="@id/imageView"
-                android:id="@+id/L3">
+                android:orientation="horizontal"
 
-                <EditText
-                    android:id="@+id/editTextBTD"
+                android:padding="8dp">
+
+
+                <TextView
+                    android:id="@+id/textViewThick"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Thick" />
+
+                <TextView
+                    android:id="@+id/textViewColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Color" />
+
+                <TextView
+                    android:id="@+id/textViewBTD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:hint="BTD" />
 
-                <EditText
-                    android:id="@+id/editTextSizeIn"
+                <TextView
+                    android:id="@+id/textViewQty"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Qty" />
+
+                <TextView
+                    android:id="@+id/textViewHole"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Hole" />
+
+                <TextView
+                    android:id="@+id/textViewCut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Cut" />
+
+                <TextView
+                    android:id="@+id/textViewSizeIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:hint="SizeIn" />
-                <EditText
-                    android:id="@+id/editTextActualSize"
+
+                <TextView
+                    android:id="@+id/textViewActualSize"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:hint="ActualSize" />
 
             </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/L3"
-                android:orientation="horizontal"
+                android:layout_below="@id/L2"
+                android:id="@+id/L3"
                 android:layout_toRightOf="@id/imageView"
-                 android:id="@+id/L4">
+                android:orientation="horizontal"
+                android:padding="8dp">
 
-                <EditText
-                    android:id="@+id/editTextHole"
+                <TextView
+                    android:id="@+id/textViewAreaInSQM"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:hint="Hole" />
-
-                <EditText
-                    android:id="@+id/editTextCut"
-                    android:layout_width="wrap_content"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:hint="Cut" />
-                <EditText
-                    android:id="@+id/editTextQty"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:hint="Qty" />
-                <EditText
-                    android:id="@+id/editTextAreaInSQM"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
                     android:hint="Area In SQM" />
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/L4"
-                android:orientation="horizontal"
-                android:layout_toRightOf="@id/imageView">
-
-                <EditText
-                    android:id="@+id/editTextOrderDate"
+                <TextView
+                    android:id="@+id/textViewRemark"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:hint="Order Date" />
-
-                <EditText
-                    android:id="@+id/editTextRemark"
-                    android:layout_width="wrap_content"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"
                     android:hint="Remark" />
 
-                <EditText
-                    android:id="@+id/editTextWeight"
+                <TextView
+                    android:id="@+id/textViewWeight"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:hint="Weight" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/linerdept"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/L3"
+                android:layout_toRightOf="@id/imageView"
+                android:orientation="horizontal">
 
+                <LinearLayout
+                    android:id="@+id/cut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CUT" />
+
+                    <Button
+                        android:id="@+id/buttonCut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imageView"
+                        android:text="OK"
+
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/grind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="GRIND" />
+
+                    <Button
+                        android:id="@+id/buttonGrind"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imageView"
+                        android:text="OK"
+
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/fab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FAB" />
+
+                    <Button
+                        android:id="@+id/buttonFab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imageView"
+                        android:text="OK"
+
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/temp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TEMP" />
+
+                    <Button
+                        android:id="@+id/buttonTemp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imageView"
+                        android:text="OK"
+
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/disp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DISP" />
+
+                    <Button
+                        android:id="@+id/buttonDisp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imageView"
+                        android:text="OK"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/reject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="REJECT" />
+
+                    <Button
+                        android:id="@+id/buttonReject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imageView"
+                        android:text="OK"
+
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+                </LinearLayout>
+            </LinearLayout>
             <Button
                 android:id="@+id/button"
                 android:layout_width="140dp"
                 android:layout_height="30dp"
                 android:layout_below="@id/imageView"
-                android:text="Course Tracking"  android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:text="Change Image"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:background="@color/colorAccent"/>
 
         </RelativeLayout>

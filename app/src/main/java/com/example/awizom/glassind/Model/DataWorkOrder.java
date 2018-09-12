@@ -70,7 +70,7 @@ public  class DataWorkOrder {
         Drawing = drawing;
     }
 
-    public DataWorkOrder(String workingDate, String partyName, String location, int PINo, int workOrderNo, double glassSpecificationThick, String glassSpecificationColor, String glassSpecificationBTD, String sizeIn, String sizeMm, String actualSize, String hole, String cut, int qty, double areaInSQM, String orderDate, double gWaight, String remark) {
+    public DataWorkOrder(String workingDate, String partyName, String location, int PINo, int workOrderNo, double glassSpecificationThick, String glassSpecificationColor, String glassSpecificationBTD, String sizeIn, String sizeMm, String actualSize, String hole, String cut, int qty, double areaInSQM, String orderDate, double gWaight, String remark,String drawing) {
         WorkingDate = workingDate;
         PartyName = partyName;
         Location = location;
@@ -95,7 +95,7 @@ public  class DataWorkOrder {
         this.DEPTTEMP = DEPTTEMP;
         this.DEPTDISP = DEPTDISP;
         this.DEPTDREJECT = DEPTDREJECT;
-        this.Drawing = Drawing;
+        Drawing = drawing;
     }
 
     public String getWorkingDate() {
