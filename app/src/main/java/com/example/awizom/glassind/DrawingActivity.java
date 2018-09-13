@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.awizom.glassind.Adapters.OrderAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,7 +34,7 @@ import java.io.IOException;
 public class DrawingActivity extends AppCompatActivity {
     //a constant to track the file chooser intent
     private static final int PICK_IMAGE_REQUEST = 234;
-    String filename,partyname;
+    String filename,partyname,livefilepath;
     int  pino;
     //Buttons
     private Button buttonChoose;
@@ -53,6 +54,7 @@ public class DrawingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
         filename=getIntent().getStringExtra("filename");
+        livefilepath=getIntent().getStringExtra("livefilepath");
         partyname=getIntent().getStringExtra("partyname");
        // pino=getIntent().getStringExtra("pino");
         pino=getIntent().getIntExtra("pino",0);
@@ -62,6 +64,15 @@ public class DrawingActivity extends AppCompatActivity {
         textview.setText("Party Name :"+partyname+" PI No :"+pino);
         imageView = findViewById(R.id.imageView);
 
+        if (livefilepath.trim().length()==0)
+        {
+            Glide.with(this).load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA0vf_EXkL0RKmM5718bM1M7742qvMsRCEwvoLbOeiBTACc4kJYA").into(imageView);
+        }
+        else
+        {
+            Glide.with(this).load(livefilepath).into(imageView);
+
+        }
         mDatabase = FirebaseDatabase.getInstance().getReference("orders");
         //attaching listener
         buttonChoose.setOnClickListener(new View. OnClickListener() {
@@ -119,9 +130,11 @@ public class DrawingActivity extends AppCompatActivity {
     private void uploadFile() {
         //if there is a file to upload
         if (filePath != null) {
+
+
             //displaying a progress dialog while upload is going on
             final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading");
+            progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
             StorageReference riversRef = storageReference.child("images/"+filename+".jpg");
@@ -153,16 +166,7 @@ public class DrawingActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            //calculating progress percentage
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-
-                            //displaying percentage in progress dialog
-                            progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
-                        }
-                    });
+                  ;
         }
         //if there is not any file
         else {

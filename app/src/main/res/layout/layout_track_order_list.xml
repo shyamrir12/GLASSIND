@@ -17,7 +17,8 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="140dp"
-                android:layout_height="141dp"
+                android:layout_height="162dp"
+                android:layout_marginRight="4dp"
                 android:scaleType="fitXY" />
 
             <LinearLayout
@@ -26,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageView"
                 android:orientation="horizontal"
-                android:padding="8dp">
+                android:padding="5dp">
 
 
                 <TextView
@@ -34,36 +35,63 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Party Name" />
+                    android:hint="Party Name"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Location" />
+                    android:hint="Location"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewOrderDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Order Date" />
+                    android:hint="Order Date"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewPINo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="PINo" />
+                    android:hint="PINo"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewworkOrderNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="work Order No" />
+                    android:hint="work Order No"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/textViewThick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Thick"
+                    android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/textViewColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Color"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewBTD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="BTD"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -74,105 +102,83 @@
                 android:layout_toRightOf="@id/imageView"
                 android:orientation="horizontal"
 
-                android:padding="8dp">
+                android:padding="5dp">
 
 
-                <TextView
-                    android:id="@+id/textViewThick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Thick" />
 
-                <TextView
-                    android:id="@+id/textViewColor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Color" />
-
-                <TextView
-                    android:id="@+id/textViewBTD"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="BTD" />
 
                 <TextView
                     android:id="@+id/textViewQty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Qty" />
+                    android:hint="Qty"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewHole"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Hole" />
+                    android:hint="Hole"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewCut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Cut" />
+                    android:hint="Cut"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewSizeIn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="SizeIn" />
+                    android:hint="SizeIn"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewActualSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="ActualSize" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/L2"
-                android:id="@+id/L3"
-                android:layout_toRightOf="@id/imageView"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
+                    android:hint="ActualSize"
+                    android:textStyle="bold" />
                 <TextView
                     android:id="@+id/textViewAreaInSQM"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Area In SQM" />
+                    android:hint="Area In SQM"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewRemark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Remark" />
+                    android:hint="Remark"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Weight" />
-
+                    android:hint="Weight"
+                    android:textStyle="bold" />
             </LinearLayout>
+
+
+
 
             <LinearLayout
                 android:id="@+id/linerdept"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/L3"
+                android:layout_below="@id/L2"
                 android:layout_toRightOf="@id/imageView"
                 android:orientation="horizontal">
 
@@ -319,14 +325,7 @@
 
                 </LinearLayout>
             </LinearLayout>
-            <Button
-                android:id="@+id/button"
-                android:layout_width="140dp"
-                android:layout_height="30dp"
-                android:layout_below="@id/imageView"
-                android:text="Change Image"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:background="@color/colorAccent"/>
+
 
         </RelativeLayout>
 

@@ -97,6 +97,34 @@ public  class DataWorkOrder {
         this.DEPTDREJECT = DEPTDREJECT;
         Drawing = drawing;
     }
+    public DataWorkOrder(String workingDate, String partyName, String location, int PINo, int workOrderNo, double glassSpecificationThick, String glassSpecificationColor, String glassSpecificationBTD, String sizeIn, String sizeMm, String actualSize, String hole, String cut, int qty, double areaInSQM, String orderDate, double gWaight, String remark,String drawing ,  boolean dEPTCUT,boolean dEPTGRIND,boolean dEPTFAB,boolean dEPTTEMP,boolean  dEPTDISP, boolean dEPTDREJECT) {
+        WorkingDate = workingDate;
+        PartyName = partyName;
+        Location = location;
+        this.PINo = PINo;
+        this.workOrderNo = workOrderNo;
+        GlassSpecificationThick = glassSpecificationThick;
+        GlassSpecificationColor = glassSpecificationColor;
+        GlassSpecificationBTD = glassSpecificationBTD;
+        SizeIn = sizeIn;
+        SizeMm = sizeMm;
+        ActualSize = actualSize;
+        Hole = hole;
+        Cut = cut;
+        Qty = qty;
+        AreaInSQM = areaInSQM;
+        OrderDate = orderDate;
+        this.GWaight = GWaight;
+        Remark = remark;
+        Drawing = drawing;
+        DEPTCUT = dEPTCUT;
+        DEPTGRIND = dEPTGRIND;
+        DEPTFAB = dEPTFAB;
+        DEPTTEMP = dEPTTEMP;
+        DEPTDISP = dEPTDISP;
+        DEPTDREJECT = dEPTDREJECT;
+
+    }
 
     public String getWorkingDate() {
         return WorkingDate;
