@@ -64,6 +64,7 @@ public class WorkOrder extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_order);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         lvInternalStorage = (ListView) findViewById(R.id.lvInternalStorage);
         btnUpDirectory = (Button) findViewById(R.id.btnUpDirectory);
         btnSDCard = (Button) findViewById(R.id.btnViewSDCard);
@@ -124,6 +125,10 @@ public class WorkOrder extends AppCompatActivity {
      *
      * @return
      */
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
     private void readExcelData(String filePath) {
         Log.d(TAG, "readExcelData: Reading Excel File.");
 

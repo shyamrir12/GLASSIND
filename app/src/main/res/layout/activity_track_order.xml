@@ -10,4 +10,32 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/excelorder"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/button_background"
+        android:text="excel order"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/recyclerView" />
+
+    <Button
+        android:id="@+id/order"
+        android:layout_width="51dp"
+        android:layout_height="25dp"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="36dp"
+        android:background="@drawable/button_background"
+        android:text="order"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/recyclerView"
+        app:layout_constraintStart_toEndOf="@id/excelorder" />
+
 </android.support.constraint.ConstraintLayout>

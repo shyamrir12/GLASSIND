@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">GLASSIND</string>
+    <string name="app_name">Glass Status Tracker</string>
 
     <string name="read_xlsx">Read XLSX</string>
     <string name="write_xlsx">Write XLSX</string>
     <string name="send_to">Send to...</string>
+    <string name="search">Search</string>
 </resources>

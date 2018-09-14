@@ -53,6 +53,7 @@ public class DrawingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         filename=getIntent().getStringExtra("filename");
         livefilepath=getIntent().getStringExtra("livefilepath");
         partyname=getIntent().getStringExtra("partyname");
@@ -88,6 +89,10 @@ public class DrawingActivity extends AppCompatActivity {
             }
         });
         storageReference =FirebaseStorage.getInstance().getReference();
+    }
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
     public void openChooser() {
 
