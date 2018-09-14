@@ -166,7 +166,7 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
         //we are storing all the products in a list
         private List<DataWorkOrder> orderList;
         ImageView imageView;
-
+        DatabaseReference dataorder;
         public OrderViewHolder(View itemView, Context mCtx, List<DataWorkOrder> orderList) {
             super(itemView);
             this.mCtx=mCtx;
@@ -223,7 +223,7 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
         public void onClick(View v) {
             int position=getAdapterPosition();
           DataWorkOrder  order =this.orderList.get(position);
-            id=order.getId();
+
             if (v.getId() ==imageView.getId()) {
                 Intent intent=new Intent(mCtx, DrawingActivity.class);
                 intent.putExtra("filename",order.getId());
@@ -233,36 +233,42 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
                 this.mCtx.startActivity(intent);
             }
             if (v.getId() == buttonCut.getId()) {
+                id=order.getId();
                 dept="CUT Department";
                 deptcolname="deptcut";
                 status="RFG";
                updateArtist();
             }
             if (v.getId() == buttonGrind.getId()) {
+                id=order.getId();
                 dept="GRIND Department";
                 deptcolname="deptgrind";
                 status="RFF";
                 updateArtist();
             }
             if (v.getId() == buttonFab.getId()) {
+                id=order.getId();
                 dept="FAB Department";
                 deptcolname="deptfab";
                 status="RFT";
                 updateArtist();
             }
             if (v.getId() == buttonTemp.getId()) {
+                id=order.getId();
                 dept="TEMP Department";
                 deptcolname="depttemp";
                 status="RFD";
                 updateArtist();
             }
             if (v.getId() == buttonDisp.getId()) {
+                id=order.getId();
                 dept="DISP Department";
                 deptcolname="deptdisp";
                 status="OC";
                 updateArtist();
             }
             if (v.getId() == buttonReject.getId()) {
+                id=order.getId();
                 dept="Reject Department";
                 deptcolname="deptdreject";
                 status="Reject";
@@ -281,10 +287,10 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
                 public void onClick(DialogInterface dialog, int which) {
                     // continue with delete
                     //getting the specified artist reference
-                    DatabaseReference dR = FirebaseDatabase.getInstance().getReference("orders").child(id);
+                    dataorder = FirebaseDatabase.getInstance().getReference("orders").child(id);
                     //updating artist
-                    dR.child(deptcolname).setValue(true);
-                    dR.child("remark").setValue(status);
+                    dataorder.child(deptcolname).setValue(true);
+                    dataorder.child("remark").setValue(status);
                     Toast.makeText(mCtx, dept+" status changed to OK", Toast.LENGTH_LONG).show();
                 }
             });
@@ -304,8 +310,10 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
 
             int position=getAdapterPosition();
             DataWorkOrder  order =this.orderList.get(position);
-            id=order.getId();
+
+
             if (v.getId() ==itemView.getId()) {
+
                 showUpdateDeleteDialog(order);
             }
             return true;
@@ -314,6 +322,7 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
         private void showUpdateDeleteDialog(DataWorkOrder  orderp) {
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx);
+            final String orderid=orderp.getId();
             final String drawing=orderp.getDrawing();
             final boolean dEPTCUT=orderp.isDEPTCUT();
             final boolean dEPTGRIND=orderp.isDEPTCUT();
@@ -398,15 +407,16 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
                     DataWorkOrder addWorkorder;
                     if(checkBox.isChecked()) {
 
-                        addWorkorder = new DataWorkOrder(WorkingDate, PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, "0", ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark, drawing );
+                        addWorkorder = new DataWorkOrder(WorkingDate, PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, "0", ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, "", drawing );
 
                     }
                     else {
                         addWorkorder = new DataWorkOrder(WorkingDate, PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, "0", ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark, drawing,
                                 dEPTCUT, dEPTGRIND, dEPTFAB, dEPTTEMP, dEPTDISP, dEPTDREJECT);
-       }
+                          }
 
                     if (!TextUtils.isEmpty(WorkingDate)) {
+                        addWorkorder.setId(orderid);
                         addOrder(addWorkorder);
                         b.dismiss();
                     }
@@ -429,7 +439,7 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
         }
         private boolean addOrder(DataWorkOrder finalWorkorder) {
             //getting the specified artist reference
-            DatabaseReference dataorder = FirebaseDatabase.getInstance().getReference("orders").child(id);
+            dataorder = FirebaseDatabase.getInstance().getReference("orders").child(finalWorkorder.getId());
 
             dataorder.setValue(finalWorkorder);
             Toast.makeText(mCtx, "Order Updated", Toast.LENGTH_LONG).show();
