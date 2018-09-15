@@ -197,10 +197,14 @@
 
                     <Button
                         android:id="@+id/buttonCut"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_below="@id/imageView"
                         android:text="OK"
+                        android:textColor="@color/white"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/button_background"
+
 
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
@@ -221,10 +225,13 @@
 
                     <Button
                         android:id="@+id/buttonGrind"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_below="@id/imageView"
                         android:text="OK"
+                        android:textColor="@color/white"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/button_background"
 
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
@@ -245,10 +252,13 @@
 
                     <Button
                         android:id="@+id/buttonFab"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_below="@id/imageView"
                         android:text="OK"
+                        android:textColor="@color/white"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/button_background"
 
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
@@ -269,10 +279,14 @@
 
                     <Button
                         android:id="@+id/buttonTemp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_below="@id/imageView"
                         android:text="OK"
+                        android:textColor="@color/white"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/button_background"
+
 
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
@@ -293,10 +307,14 @@
 
                     <Button
                         android:id="@+id/buttonDisp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_below="@id/imageView"
                         android:text="OK"
+                        android:textColor="@color/white"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/button_background"
+
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
                 </LinearLayout>
@@ -316,10 +334,13 @@
 
                     <Button
                         android:id="@+id/buttonReject"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_below="@id/imageView"
                         android:text="OK"
+                        android:textColor="@color/white"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/button_background"
 
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 

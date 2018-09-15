@@ -284,8 +284,10 @@ public class WorkOrder extends AppCompatActivity {
         final EditText editTextOrderDate = (EditText) dialogView.findViewById(R.id.editTextOrderDate);
         final EditText editTextWeight = (EditText) dialogView.findViewById(R.id.editTextWeight);
         final EditText editTextRemark = (EditText) dialogView.findViewById(R.id.editTextRemark);
-
-        editTextWorkingDate.setText(addWorkorder.getWorkingDate());
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+       String currentdateString=formatter.format(date);
+        editTextWorkingDate.setText(currentdateString);
         editTextPartyName.setText(addWorkorder.getPartyName());
         editTextLocation.setText(addWorkorder.getLocation());
         editTextPINo.setText(Integer.toString( addWorkorder.getPINo()));

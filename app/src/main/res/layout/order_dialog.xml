@@ -14,7 +14,8 @@
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Working Date" />
+            android:hint="DD/MM/YY"
+            android:inputType="date" />
 
         <EditText
             android:id="@+id/editTextPartyName"

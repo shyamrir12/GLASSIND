@@ -1,5 +1,6 @@
 package com.example.awizom.glassind;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,11 +21,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import android.widget.Toast;
 
 import com.example.awizom.glassind.Adapters.OrderAdapter;
+import com.example.awizom.glassind.Fragment.DatePickerFragment;
 import com.example.awizom.glassind.Model.DataWorkOrder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,11 +36,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import android.support.v7.widget.SearchView;
 
-public class TrackOrderActivity extends AppCompatActivity implements android.support.v7.widget.SearchView.OnQueryTextListener {
+public class TrackOrderActivity extends AppCompatActivity implements android.support.v7.widget.SearchView.OnQueryTextListener,DatePickerDialog.OnDateSetListener {
     RecyclerView recyclerView;
     ProgressDialog progressDialog ;
     DatabaseReference dataorder;
@@ -46,6 +54,7 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
     int CAMRA_REQUEST_CODE=0;
     String filename="";
     Button addorder,addexcelorder;
+    String currentdateString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +66,9 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         progressDialog = new ProgressDialog(this);
         orderList=new ArrayList<>();
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+         currentdateString=formatter.format(date);
         getOrder();
         addorder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +80,6 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
             @Override
             public void onClick(View v) {
                 Intent seemore = new Intent(TrackOrderActivity.this,WorkOrder.class);
-
                 startActivity(seemore);
 
             }
@@ -81,39 +92,39 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
         MenuItem menuItem=menu.findItem(R.id.action_search);
        MenuItem menuItemcal=menu.findItem(R.id.action_calender);
         android.support.v7.widget.SearchView searchView=(android.support.v7.widget.SearchView) menuItem.getActionView();
-
         searchView.setOnQueryTextListener(this);
         menuItemcal.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                getOrderbydate();
+                DialogFragment datepicker=new DatePickerFragment();
+                datepicker.show(getSupportFragmentManager(),"date picker");
                 return false;
             }
         });
         return true;
     }
-    private void getOrderbydate()
-    {
-       //show calender
 
-    }
     private void getOrder() {
         try {
             //String res="";
+
             progressDialog.setMessage("loading...");
             progressDialog.show();
             dataorder = FirebaseDatabase.getInstance().getReference("orders");
             //without filter
-           dataorder.addListenerForSingleValueEvent(valueEventListener);
-
-         /*   dataorder.addValueEventListener(new ValueEventListener() {
+            // dataorder.addListenerForSingleValueEvent(valueEventListener);
+            Query  query= FirebaseDatabase.getInstance().getReference("orders")
+                    .orderByChild("workingDate").equalTo(currentdateString);
+            // query.addListenerForSingleValueEvent(valueEventListener);
+            query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                   orderList.clear();
+                    orderList.clear();
+
                     //iterating through all the nodes
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         //getting artist
-                       DataWorkOrder order = postSnapshot.getValue(DataWorkOrder.class);
+                        DataWorkOrder order = postSnapshot.getValue(DataWorkOrder.class);
                         //adding artist to the list
                         orderList.add(order);
                     }
@@ -127,9 +138,62 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     progressDialog.dismiss();
                 }
-            });*/
-         //   new MyCourse.GETCourseList().execute(SharedPrefManager.getInstance(this).getUser().access_token);
-         //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
+            });
+            //   new MyCourse.GETCourseList().execute(SharedPrefManager.getInstance(this).getUser().access_token);
+            //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            // System.out.println("Error: " + e);
+        }
+    }
+    private void getOrderbyName(String partynmae) {
+        try {
+            //String res="";
+
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            dataorder = FirebaseDatabase.getInstance().getReference("orders");
+            //without filter
+            // dataorder.addListenerForSingleValueEvent(valueEventListener);
+            Query  query;
+            if(partynmae.trim().length()==0)
+            {
+                 query= FirebaseDatabase.getInstance().getReference("orders")
+                        .orderByChild("workingDate").equalTo(currentdateString);
+            }
+            else {
+                 query = FirebaseDatabase.getInstance().getReference("orders")
+                        .orderByChild("partyName").startAt(partynmae);
+            }
+            // query.addListenerForSingleValueEvent(valueEventListener);
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    orderList.clear();
+
+                    //iterating through all the nodes
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        //getting artist
+                        DataWorkOrder order = postSnapshot.getValue(DataWorkOrder.class);
+                        //adding artist to the list
+                        orderList.add(order);
+                    }
+                    //creating adapter
+                    adapter=new OrderAdapter(TrackOrderActivity.this, orderList);
+                    //attaching adapter to the listview
+                    recyclerView.setAdapter(adapter);
+                    progressDialog.dismiss();
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    progressDialog.dismiss();
+                }
+            });
+            //   new MyCourse.GETCourseList().execute(SharedPrefManager.getInstance(this).getUser().access_token);
+            //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -186,23 +250,23 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
         final EditText editTextWeight = (EditText) dialogView.findViewById(R.id.editTextWeight);
         final EditText editTextRemark = (EditText) dialogView.findViewById(R.id.editTextRemark);
 
-      /*  editTextWorkingDate.setText(addWorkorder.getWorkingDate());
-        editTextPartyName.setText(addWorkorder.getPartyName());
-        editTextLocation.setText(addWorkorder.getLocation());
-        editTextPINo.setText(Integer.toString( addWorkorder.getPINo()));
-        editTextworkOrderNo.setText(Integer.toString(  addWorkorder.getWorkOrderNo()));
-        editTextThick.setText(Double.toString( addWorkorder.getGlassSpecificationThick()));
-        editTextColor.setText( addWorkorder.getGlassSpecificationColor());
-        editTextBTD.setText(addWorkorder.getGlassSpecificationBTD());
-        editTextSizeIn.setText(addWorkorder.getSizeIn());
-        editTextActualSize.setText(addWorkorder.getActualSize());
-        editTextHole.setText(addWorkorder.getHole());
-        editTextCut.setText(addWorkorder.getCut());
-        editTextQty.setText(Integer.toString( addWorkorder.getQty()));
-        editTextAreaInSQM.setText(Double.toString(addWorkorder.getAreaInSQM()));
-        editTextOrderDate.setText(addWorkorder.getOrderDate());
-        editTextWeight.setText(Double.toString(addWorkorder.getGWaight()));
-        editTextRemark.setText(addWorkorder.getRemark());*/
+       editTextWorkingDate.setText(currentdateString);
+      //editTextPartyName.setText(addWorkorder.getPartyName());
+       // editTextLocation.setText(addWorkorder.getLocation());
+        editTextPINo.setText("0");
+        editTextworkOrderNo.setText("0");
+        editTextThick.setText("0");
+       // editTextColor.setText( addWorkorder.getGlassSpecificationColor());
+        //editTextBTD.setText(addWorkorder.getGlassSpecificationBTD());
+       // editTextSizeIn.setText(addWorkorder.getSizeIn());
+        //editTextActualSize.setText(addWorkorder.getActualSize());
+       // editTextHole.setText(addWorkorder.getHole());
+        //editTextCut.setText(addWorkorder.getCut());
+        editTextQty.setText("0");
+        editTextAreaInSQM.setText("0");
+        editTextOrderDate.setText(currentdateString);
+        editTextWeight.setText("0");
+       // editTextRemark.setText(addWorkorder.getRemark());
 
 
 
@@ -212,7 +276,6 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
         dialogBuilder.setTitle("Add Order");
         final AlertDialog b = dialogBuilder.create();
         b.show();
-
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -287,19 +350,82 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+
         return false;
     }
 
     @Override
-    public boolean onQueryTextChange(String newText) {
+    public boolean onQueryTextChange(final String newText) {
 
-        dataorder = FirebaseDatabase.getInstance().getReference("orders");
+       //use query for filter
+       //getOrderbyName(newText .toLowerCase());
         //filter byname
-        Query  query= FirebaseDatabase.getInstance().getReference("orders")
-                .orderByChild("partyName").equalTo(newText);
-        query.addListenerForSingleValueEvent(valueEventListener);
-        return false;
+       // Query  query= FirebaseDatabase.getInstance().getReference("orders")
+      //          .orderByChild("partyName").equalTo(newText);
+      //  query.addListenerForSingleValueEvent(valueEventListener);
+
+       dataorder = FirebaseDatabase.getInstance().getReference("orders");
+       dataorder.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                //iterating through all the nodes
+                if (newText.trim().length()==0) {
+                    orderList.clear();
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        //getting artist
+                        DataWorkOrder order = postSnapshot.getValue(DataWorkOrder.class);
+                        //adding artist to the list
+
+                        if (order.getWorkingDate().equals(currentdateString))
+                            orderList.add(order);
+
+
+                    }
+                }
+                else {
+
+                    orderList.clear();
+
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        //getting artist
+                        DataWorkOrder order = postSnapshot.getValue(DataWorkOrder.class);
+                        //adding artist to the list
+
+                        if (order.getPartyName().toLowerCase().contains(newText.toLowerCase()))
+                            orderList.add(order);
+
+
+                    }
+                }
+                //creating adapter
+                adapter=new OrderAdapter(TrackOrderActivity.this, orderList);
+                //attaching adapter to the listview
+                recyclerView.setAdapter(adapter);
+                progressDialog.dismiss();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                progressDialog.dismiss();
+            }
+        });
+        return true;
     }
 
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c=Calendar.getInstance();
+        c.set(Calendar.YEAR,year);
+        c.set(Calendar.MONTH,month);
+        c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        //String dateString= DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(c.getTime());
+       // Date date = new Date();
+        currentdateString=formatter.format(c.getTime());
+        //String dateString=formatter.format(date);
+       // Toast.makeText(this, dateString, Toast.LENGTH_SHORT).show();
+        getOrder();
+
+    }
 }

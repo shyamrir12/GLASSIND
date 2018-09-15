@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TrackOrderActivity">
+    tools:context=".TrackOrderActivity" android:id="@+id/activity_chooser_view_content">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -13,29 +13,26 @@
 
     <Button
         android:id="@+id/excelorder"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/button_background"
-        android:text="excel order"
-        android:textAllCaps="false"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_margin="15dp"
+        android:text="excel"
         android:textColor="@color/white"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="@id/recyclerView" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:background="@drawable/button_background"
+       app:layout_constraintBottom_toBottomOf="@id/activity_chooser_view_content" />
 
     <Button
         android:id="@+id/order"
-        android:layout_width="51dp"
-        android:layout_height="25dp"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginStart="36dp"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="5dp"
         android:background="@drawable/button_background"
         android:text="order"
-        android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="@id/recyclerView"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        app:layout_constraintBottom_toBottomOf="@id/activity_chooser_view_content"
         app:layout_constraintStart_toEndOf="@id/excelorder" />
 
 </android.support.constraint.ConstraintLayout>
