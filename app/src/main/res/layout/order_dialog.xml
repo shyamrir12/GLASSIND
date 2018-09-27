@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="PINo" />
+                android:hint="PINo" android:inputType="number"/>
 
         </LinearLayout>
         <LinearLayout
@@ -116,13 +116,13 @@
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="Qty" />
+                android:hint="Qty" android:inputType="number"/>
             <EditText
                 android:id="@+id/editTextAreaInSQM"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="Area In SQM" />
+                android:hint="Area In SQM" android:inputType="numberDecimal" />
 
         </LinearLayout>
         <LinearLayout
@@ -149,7 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="Weight" />
+                android:hint="Weight" android:inputType="numberDecimal"/>
 
         </LinearLayout>
         <LinearLayout

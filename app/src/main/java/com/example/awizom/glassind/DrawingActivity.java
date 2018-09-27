@@ -53,7 +53,9 @@ public class DrawingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
+        getSupportActionBar().setTitle("Select Drawing File");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         filename=getIntent().getStringExtra("filename");
         livefilepath=getIntent().getStringExtra("livefilepath");
         partyname=getIntent().getStringExtra("partyname");

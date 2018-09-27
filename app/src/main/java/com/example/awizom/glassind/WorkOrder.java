@@ -64,6 +64,7 @@ public class WorkOrder extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_order);
+        getSupportActionBar().setTitle("Select Excel File");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         lvInternalStorage = (ListView) findViewById(R.id.lvInternalStorage);
         btnUpDirectory = (Button) findViewById(R.id.btnUpDirectory);

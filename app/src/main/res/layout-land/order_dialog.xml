@@ -13,185 +13,185 @@
 
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/editTextWorkingDate"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/editTextWorkingDate"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="DD/MM/YY"
-                android:inputType="date" />
+            android:hint="DD/MM/YY"
+            android:inputType="date" />
 
-            <EditText
-                android:id="@+id/editTextPartyName"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Party Name" />
-
-            <EditText
-                android:id="@+id/editTextLocation"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Location" />
-            <EditText
-                android:id="@+id/editTextPINo"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="PINo" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/editTextPartyName"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:hint="Party Name" />
 
-            <EditText
-                android:id="@+id/editTextworkOrderNo"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="work Order No" />
-
-            <EditText
-                android:id="@+id/editTextThick"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Thick" />
-            <EditText
-                android:id="@+id/editTextColor"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Color" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/editTextLocation"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/editTextBTD"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="BTD" />
-
-            <EditText
-                android:id="@+id/editTextSizeIn"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="SizeIn" />
-            <EditText
-                android:id="@+id/editTextActualSize"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="ActualSize" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:hint="Location" />
+        <EditText
+            android:id="@+id/editTextPINo"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:hint="PINo" android:inputType="number"/>
 
-            <EditText
-                android:id="@+id/editTextHole"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Hole" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/editTextCut"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Cut" />
-            <EditText
-                android:id="@+id/editTextQty"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Qty" />
-            <EditText
-                android:id="@+id/editTextAreaInSQM"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Area In SQM" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/editTextworkOrderNo"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:hint="work Order No" />
 
-            <EditText
-                android:id="@+id/editTextOrderDate"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Order Date" />
-
-            <EditText
-                android:id="@+id/editTextRemark"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Remark" />
-
-            <EditText
-                android:id="@+id/editTextWeight"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Weight" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/editTextThick"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Resat Status of this order"
-                android:visibility="gone" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:hint="Thick" />
+        <EditText
+            android:id="@+id/editTextColor"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:hint="Color" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextBTD"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="BTD" />
+
+        <EditText
+            android:id="@+id/editTextSizeIn"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="SizeIn" />
+        <EditText
+            android:id="@+id/editTextActualSize"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="ActualSize" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextHole"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Hole" />
+
+        <EditText
+            android:id="@+id/editTextCut"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Cut" />
+        <EditText
+            android:id="@+id/editTextQty"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Qty" android:inputType="number"/>
+        <EditText
+            android:id="@+id/editTextAreaInSQM"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Area In SQM" android:inputType="numberDecimal" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextOrderDate"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Order Date" />
+
+        <EditText
+            android:id="@+id/editTextRemark"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Remark" />
+
+        <EditText
+            android:id="@+id/editTextWeight"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Weight" android:inputType="numberDecimal"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Resat Status of this order"
+            android:visibility="gone" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
 
 
-            <Button
-                android:id="@+id/buttonAddOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Add" />
+        <Button
+            android:id="@+id/buttonAddOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add" />
 
-            <Button
-                android:id="@+id/buttonCancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cancel" />
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel" />
 
-        </LinearLayout>
+    </LinearLayout>
 
 
 
