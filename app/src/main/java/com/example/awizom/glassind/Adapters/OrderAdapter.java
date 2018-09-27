@@ -330,11 +330,11 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
             final String orderid=orderp.getId();
             final String drawing=orderp.getDrawing();
             final boolean dEPTCUT=orderp.isDEPTCUT();
-            final boolean dEPTGRIND=orderp.isDEPTCUT();
-            final boolean dEPTFAB=orderp.isDEPTCUT();
-            final boolean dEPTTEMP=orderp.isDEPTCUT();
-            final boolean  dEPTDISP=orderp.isDEPTCUT();
-            final  boolean dEPTDREJECT=orderp.isDEPTCUT();
+            final boolean dEPTGRIND=orderp.isDEPTGRIND();
+            final boolean dEPTFAB=orderp.isDEPTFAB();
+            final boolean dEPTTEMP=orderp.isDEPTTEMP();
+            final boolean  dEPTDISP=orderp.isDEPTDISP();
+            final  boolean dEPTDREJECT=orderp.isDEPTDREJECT();
             LayoutInflater inflater = LayoutInflater.from(mCtx);;
             final View dialogView = inflater.inflate(R.layout.order_dialog, null);
             dialogBuilder.setView(dialogView);
