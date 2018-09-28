@@ -3,12 +3,15 @@ package com.example.awizom.glassind;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,6 +20,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.awizom.glassind.Adapters.OrderAdapter;
+import com.example.awizom.glassind.core.ImageCompressTask;
+import com.example.awizom.glassind.listeners.IImageCompressTaskListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,7 +35,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 public class DrawingActivity extends AppCompatActivity {
     //a constant to track the file chooser intent
     private static final int PICK_IMAGE_REQUEST = 234;
@@ -40,6 +48,10 @@ public class DrawingActivity extends AppCompatActivity {
     private Button buttonChoose;
     private Button buttonUpload;
     private TextView textview;
+    File file;
+    private ExecutorService mExecutorService = Executors.newFixedThreadPool(1);
+
+    private ImageCompressTask imageCompressTask;
     //ImageView
     private ImageView imageView;
 
@@ -109,17 +121,28 @@ public class DrawingActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            filePath = data.getData();
+            //filePath = data.getData();
             //when from camera
            // filePath = getIntent().getData();
 
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                imageView.setImageBitmap(bitmap);
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                Uri uri = data.getData();
+                Cursor cursor = MediaStore.Images.Media.query(getContentResolver(), uri, new String[]{MediaStore.Images.Media.DATA});
+
+                if(cursor != null && cursor.moveToFirst()) {
+                    String path = cursor.getString( cursor.getColumnIndexOrThrow( MediaStore.Images.Media.DATA ) );
+
+                    //Create ImageCompressTask and execute with Executor.
+                    imageCompressTask = new ImageCompressTask( this, path, iImageCompressTaskListener );
+
+                    mExecutorService.execute( imageCompressTask );
+                   // Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                   // imageView.setImageBitmap(bitmap);
+                }
+
+
+
+
         }
     }
     private void downlodeFile(){
@@ -128,7 +151,6 @@ public class DrawingActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 String downloadUrl = task.getResult().toString();
-
                 mDatabase.child(filename).child("drawing").setValue(downloadUrl);
                 // downloadurl will be the resulted answer
             }
@@ -181,6 +203,40 @@ public class DrawingActivity extends AppCompatActivity {
         }
 
 
+    }
+    //image compress task callback
+    private IImageCompressTaskListener iImageCompressTaskListener = new IImageCompressTaskListener() {
+        @Override
+        public void onComplete(List<File> compressed) {
+            //photo compressed. Yay!
+
+            //prepare for uploads. Use an Http library like Retrofit, Volley or async-http-client (My favourite)
+
+           file = compressed.get(0);
+
+            Log.d("ImageCompressor", "New photo size ==> " + file.length()); //log new file size.
+
+            imageView.setImageBitmap( BitmapFactory.decodeFile(file.getAbsolutePath()));
+            filePath =Uri.fromFile(new File(file.getAbsolutePath()));
+        }
+
+        @Override
+        public void onError(Throwable error) {
+            //very unlikely, but it might happen on a device with extremely low storage.
+            //log it, log.WhatTheFuck?, or show a dialog asking the user to delete some files....etc, etc
+            Log.wtf("ImageCompressor", "Error occurred", error);
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        //clean up!
+        mExecutorService.shutdown();
+
+        mExecutorService = null;
+        imageCompressTask = null;
     }
 
 }

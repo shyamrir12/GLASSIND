@@ -12,144 +12,280 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <EditText
-                android:id="@+id/editTextWorkingDate"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_WorkingDate"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="DD/MM/YY"
-                android:inputType="date" />
+                android:layout_weight="1">
 
-            <EditText
-                android:id="@+id/editTextPartyName"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Party Name" />
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/editTextWorkingDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Order Date*"
+                    android:inputType="date" />
 
-            <EditText
-                android:id="@+id/editTextLocation"
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_PartyName"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="Location" />
-            <EditText
-                android:id="@+id/editTextPINo"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="PINo" android:inputType="number"/>
+                android:layout_weight="1">
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/editTextPartyName"
+                    android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                    android:hint="Party" />
+                <requestFocus></requestFocus>
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_Location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
-            <EditText
-                android:id="@+id/editTextworkOrderNo"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="work Order No" />
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/editTextLocation"
+                    android:layout_width="match_parent"
 
-            <EditText
-                android:id="@+id/editTextThick"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Thick" />
-            <EditText
-                android:id="@+id/editTextColor"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Color" />
+                    android:layout_height="wrap_content"
+                    android:hint="Location"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_PINo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextPINo"
+                    android:hint="PINo"
+                    android:inputType="number"
+                    />
 
-            <EditText
-                android:id="@+id/editTextBTD"
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_workOrderNo"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="BTD" />
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextworkOrderNo"
+                    android:hint="W O No"
 
-            <EditText
-                android:id="@+id/editTextSizeIn"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_Thick"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="SizeIn" />
-            <EditText
-                android:id="@+id/editTextActualSize"
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextThick"
+                    android:hint="Thick"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_Color"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="ActualSize" />
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextColor"
+                    android:hint="Color"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_BTD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextBTD"
+                    android:hint="BTD"
 
-            <EditText
-                android:id="@+id/editTextHole"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Hole" />
+                    />
 
-            <EditText
-                android:id="@+id/editTextCut"
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_SizeIn"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="Cut" />
-            <EditText
-                android:id="@+id/editTextQty"
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextSizeIn"
+                    android:hint="SizeIn"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_ActualSize"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="Qty" android:inputType="number"/>
-            <EditText
-                android:id="@+id/editTextAreaInSQM"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Area In SQM" android:inputType="numberDecimal" />
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextActualSize"
+                    android:hint="ActualSize"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/editTextOrderDate"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_Hole"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="Order Date" />
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextHole"
+                    android:hint="Hole"
 
-            <EditText
-                android:id="@+id/editTextRemark"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Remark" />
+                    />
 
-            <EditText
-                android:id="@+id/editTextWeight"
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_Cut"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="Weight" android:inputType="numberDecimal"/>
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextCut"
+                    android:hint="Cut"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_Qty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextQty"
+                    android:hint="Qty" android:inputType="number"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_AreaInSQM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextAreaInSQM"
+                    android:hint="Area In SQM" android:inputType="numberDecimal"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_OrderDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextOrderDate"
+                    android:hint="Order Date"
+                    android:inputType="date"
+                   />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_Remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextRemark"
+                    android:hint="Remark"
+                    android:inputType="none"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_Weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextWeight"
+                    android:hint="Weight" android:inputType="numberDecimal"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
 
         </LinearLayout>
         <LinearLayout
@@ -175,16 +311,24 @@
             <Button
                 android:id="@+id/buttonAddOrder"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="Add" />
+                android:background="@drawable/button_background"
+                android:text="Add"
+
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/buttonCancel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="Cancel" />
+                android:background="@drawable/button_background"
+                android:text="Cencel"
+
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 

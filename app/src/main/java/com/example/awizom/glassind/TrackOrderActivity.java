@@ -69,6 +69,9 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
          currentdateString=formatter.format(date);
+
+
+
         getOrder();
         addorder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +120,7 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
                     .orderByChild("workingDate").equalTo(currentdateString);
             // query.addListenerForSingleValueEvent(valueEventListener);
             query.addValueEventListener(new ValueEventListener() {
+
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     orderList.clear();
@@ -130,9 +134,12 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
                     }
                     //creating adapter
                     adapter=new OrderAdapter(TrackOrderActivity.this, orderList);
-                    //attaching adapter to the listview
+                   //attaching adapter to the listview
                     recyclerView.setAdapter(adapter);
                     progressDialog.dismiss();
+                     //when u want to see only perticuller update then add notify hear and
+                    //creating adapter and attaching adapter to the listview at oncreate method
+                   // adapter.notifyDataSetChanged();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -149,6 +156,7 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
             // System.out.println("Error: " + e);
         }
     }
+
     private void getOrderbyName(String partynmae) {
         try {
             //String res="";
@@ -280,12 +288,43 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int PINo=0,workOrderNo=0,Qty=0;
+                double GlassSpecificationThick=0,AreaInSQM =0,GWaight=0;
                 String WorkingDate = editTextWorkingDate.getText().toString().trim();
                 String PartyName = editTextPartyName.getText().toString().trim();
                 String Location = editTextLocation.getText().toString().trim();
-                int PINo = Integer.parseInt( editTextPINo.getText().toString().trim());
-                int workOrderNo =Integer.parseInt( editTextworkOrderNo.getText().toString().trim());
-                double GlassSpecificationThick =Double.parseDouble( editTextThick.getText().toString().trim());
+                if(TextUtils.isEmpty(editTextPINo.getText().toString())) {
+
+                    editTextPINo.setError("input correct value");
+                    editTextPINo.setFocusable( true );
+                    return;
+                }
+                else
+                {
+                    PINo = Integer.parseInt( editTextPINo.getText().toString().trim() );
+                }
+                if(TextUtils.isEmpty(editTextworkOrderNo.getText().toString())) {
+                    editTextworkOrderNo.setError("input correct value");
+                    editTextworkOrderNo.setFocusable( true );
+                    return;
+                }
+                else
+                {
+                    workOrderNo = Integer.parseInt( editTextworkOrderNo.getText().toString().trim() );
+                }
+
+                if(TextUtils.isEmpty(editTextThick.getText().toString())) {
+
+                    editTextThick.setError("input correct value");
+                    editTextThick.setFocusable( true );
+                    return;
+                }
+                else
+                {
+                    GlassSpecificationThick = Double.parseDouble( editTextThick.getText().toString().trim() );
+
+                }
+
                 String GlassSpecificationColor = editTextColor.getText().toString().trim();
                 String GlassSpecificationBTD = editTextBTD.getText().toString().trim();
                 String SizeIn = editTextSizeIn.getText().toString().trim();
@@ -293,32 +332,62 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
                 String ActualSize =  editTextActualSize.getText().toString().trim();
                 String Hole = editTextHole.getText().toString().trim();
                 String Cut =  editTextCut.getText().toString().trim();
-                int Qty = Integer.parseInt( editTextQty.getText().toString().trim());
-                double AreaInSQM =Double.parseDouble( editTextAreaInSQM.getText().toString().trim());
+                if(TextUtils.isEmpty(editTextQty.getText().toString())) {
+                    editTextQty.setError("input correct value");
+                    editTextQty.setFocusable( true );
+                    return;
+                }
+                else
+                {Qty = Integer.parseInt( editTextQty.getText().toString().trim() );
+
+                }
+                if(TextUtils.isEmpty(editTextAreaInSQM.getText().toString())) {
+                    editTextQty.setError("input correct value");
+                    editTextQty.setFocusable( true );
+                    return;
+                }
+                else
+                {
+                    AreaInSQM = Double.parseDouble( editTextAreaInSQM.getText().toString().trim() );
+                }
                 String OrderDate =  editTextOrderDate.getText().toString().trim();
-                double GWaight = Double.parseDouble( editTextWeight.getText().toString().trim());
+                if(TextUtils.isEmpty(editTextWeight.getText().toString())) {
+                    editTextWeight.setError("input correct value");
+                    editTextWeight.setFocusable( true );
+                    return;
+                }
+                else
+                {
+                    GWaight = Double.parseDouble( editTextWeight.getText().toString().trim() );
+                }
                 String Remark = editTextRemark.getText().toString().trim();
+                DataWorkOrder addWorkorder;
+                if (TextUtils.isEmpty(WorkingDate))
+                {
+                    editTextWorkingDate.setError("Working Date is required");
+                    editTextWorkingDate.setFocusable( true );
+                    return;
+                }
+                if (!WorkingDate.matches("([0-9]{2})/([0-9]{2})/([0-9]{2})"))
+                {
+                    editTextWorkingDate.setError("input date in correct format(DD/MM/YY)");
+                    editTextWorkingDate.setFocusable( true );
+                    return;
+                }
+                if (TextUtils.isEmpty(OrderDate))
+                {
+                    editTextOrderDate.setError("Working Date is required");
+                    editTextOrderDate.setFocusable( true );
+                    return;
+                }
+
+
                 addWorkorder=new DataWorkOrder(WorkingDate, PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, "0", ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark,"");
 
-                if (!TextUtils.isEmpty(WorkingDate)||!TextUtils.isEmpty(PartyName)
-                        ||!TextUtils.isEmpty(Location)
-                        ||PINo==0
-                        ||workOrderNo==0
-                        ||GlassSpecificationThick==0
-                        ||!TextUtils.isEmpty(GlassSpecificationColor)
-                        ||!TextUtils.isEmpty(GlassSpecificationBTD)
-                        ||!TextUtils.isEmpty(SizeIn)
 
-                        ||!TextUtils.isEmpty(Hole)
-                        ||!TextUtils.isEmpty(Cut)
-                        ||Qty==0
-                        ||AreaInSQM==0
-                        ||!TextUtils.isEmpty(OrderDate)
-                        ||!TextUtils.isEmpty(Remark)
-                        ) {
                     addOrder(addWorkorder);
                     b.dismiss();
-                }
+
             }
 
 
@@ -426,6 +495,6 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
         //String dateString=formatter.format(date);
        // Toast.makeText(this, dateString, Toast.LENGTH_SHORT).show();
         getOrder();
-
+        recyclerView.setAdapter(adapter);
     }
 }

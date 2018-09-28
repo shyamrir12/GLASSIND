@@ -80,10 +80,10 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
           //  imgurl="https://www.homesbykimblanton.com/uploads/shared/images/library%202.jpg";
         //binding the data with the viewholder views
        // holder.textViewWorkingDate.setText("WorkingDate :"+order.getWorkingDate());
-        holder. textViewPartyName.setText("PartyName\n"+order.getPartyName());
+        holder. textViewPartyName.setText("Party\n"+order.getPartyName());
         holder. textViewLocation.setText("Location\n"+order.getLocation());
         holder.textViewPINo.setText("PINo \n"+Integer.toString( order.getPINo()));
-        holder. textViewworkOrderNo.setText("WorkOrderNo \n"+Integer.toString(  order.getWorkOrderNo()));
+        holder. textViewworkOrderNo.setText("WONo \n"+Integer.toString(  order.getWorkOrderNo()));
         holder.textViewThick.setText("Thick\n"+Double.toString( order.getGlassSpecificationThick()));
         holder. textViewColor.setText("Color\n"+ order.getGlassSpecificationColor());
         holder. textViewBTD.setText("BTD\n"+order.getGlassSpecificationBTD());
@@ -391,12 +391,43 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    int PINo=0,workOrderNo=0,Qty=0;
+                    double GlassSpecificationThick=0,AreaInSQM =0,GWaight=0;
                     String WorkingDate = editTextWorkingDate.getText().toString().trim();
                     String PartyName = editTextPartyName.getText().toString().trim();
                     String Location = editTextLocation.getText().toString().trim();
-                    int PINo = Integer.parseInt( editTextPINo.getText().toString().trim());
-                    int workOrderNo =Integer.parseInt( editTextworkOrderNo.getText().toString().trim());
-                    double GlassSpecificationThick =Double.parseDouble( editTextThick.getText().toString().trim());
+                    if(TextUtils.isEmpty(editTextPINo.getText().toString())) {
+
+                        editTextPINo.setError("input correct value");
+                        editTextPINo.setFocusable( true );
+                        return;
+                    }
+                    else
+                    {
+                        PINo = Integer.parseInt( editTextPINo.getText().toString().trim() );
+                    }
+                    if(TextUtils.isEmpty(editTextworkOrderNo.getText().toString())) {
+                        editTextworkOrderNo.setError("input correct value");
+                        editTextworkOrderNo.setFocusable( true );
+                        return;
+                    }
+                    else
+                    {
+                        workOrderNo = Integer.parseInt( editTextworkOrderNo.getText().toString().trim() );
+                    }
+
+                    if(TextUtils.isEmpty(editTextThick.getText().toString())) {
+
+                        editTextThick.setError("input correct value");
+                        editTextThick.setFocusable( true );
+                        return;
+                    }
+                    else
+                    {
+                        GlassSpecificationThick = Double.parseDouble( editTextThick.getText().toString().trim() );
+
+                    }
+
                     String GlassSpecificationColor = editTextColor.getText().toString().trim();
                     String GlassSpecificationBTD = editTextBTD.getText().toString().trim();
                     String SizeIn = editTextSizeIn.getText().toString().trim();
@@ -404,12 +435,59 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
                     String ActualSize =  editTextActualSize.getText().toString().trim();
                     String Hole = editTextHole.getText().toString().trim();
                     String Cut =  editTextCut.getText().toString().trim();
-                    int Qty = Integer.parseInt( editTextQty.getText().toString().trim());
-                    double AreaInSQM =Double.parseDouble( editTextAreaInSQM.getText().toString().trim());
+                    if(TextUtils.isEmpty(editTextQty.getText().toString())) {
+                        editTextQty.setError("input correct value");
+                        editTextQty.setFocusable( true );
+                        return;
+                    }
+                    else
+                    {Qty = Integer.parseInt( editTextQty.getText().toString().trim() );
+
+                    }
+                    if(TextUtils.isEmpty(editTextAreaInSQM.getText().toString())) {
+                        editTextQty.setError("input correct value");
+                        editTextQty.setFocusable( true );
+                        return;
+                    }
+                    else
+                    {
+                        AreaInSQM = Double.parseDouble( editTextAreaInSQM.getText().toString().trim() );
+                    }
                     String OrderDate =  editTextOrderDate.getText().toString().trim();
-                    double GWaight = Double.parseDouble( editTextWeight.getText().toString().trim());
+                    if(TextUtils.isEmpty(editTextWeight.getText().toString())) {
+                        editTextWeight.setError("input correct value");
+                        editTextWeight.setFocusable( true );
+                        return;
+                    }
+                    else
+                    {
+                        GWaight = Double.parseDouble( editTextWeight.getText().toString().trim() );
+                    }
                     String Remark = editTextRemark.getText().toString().trim();
                     DataWorkOrder addWorkorder;
+                    if (TextUtils.isEmpty(WorkingDate))
+                    {
+                        editTextWorkingDate.setError("Working Date is required");
+                        editTextWorkingDate.setFocusable( true );
+                        return;
+                    }
+                    if (!WorkingDate.matches("([0-9]{2})/([0-9]{2})/([0-9]{2})"))
+                    {
+                        editTextWorkingDate.setError("input date in correct format(DD/MM/YY)");
+                        editTextWorkingDate.setFocusable( true );
+                        return;
+                    }
+                    if (TextUtils.isEmpty(OrderDate))
+                    {
+                        editTextOrderDate.setError("Working Date is required");
+                        editTextOrderDate.setFocusable( true );
+                        return;
+                    }
+
+
+
+
+
                     if(checkBox.isChecked()) {
 
                         addWorkorder = new DataWorkOrder(WorkingDate, PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, "0", ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, "", drawing );
@@ -420,11 +498,11 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
                                 dEPTCUT, dEPTGRIND, dEPTFAB, dEPTTEMP, dEPTDISP, dEPTDREJECT);
                           }
 
-                    if (!TextUtils.isEmpty(WorkingDate)) {
+
                         addWorkorder.setId(orderid);
                         addOrder(addWorkorder);
                         b.dismiss();
-                    }
+
                 }
 
 
