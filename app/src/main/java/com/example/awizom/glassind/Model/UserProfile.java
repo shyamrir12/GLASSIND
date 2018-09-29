@@ -13,6 +13,9 @@ public class UserProfile {
         Active = active;
     }
 
+    public UserProfile() {
+    }
+
     public String getEmail() {
         return Email;
     }
