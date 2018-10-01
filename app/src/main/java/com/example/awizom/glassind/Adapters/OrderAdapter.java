@@ -48,16 +48,16 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
 
     //we are storing all the products in a list
     private List<DataWorkOrder> orderList;
-
+private String role;
     //If file exist in storage this works.
 
 
 
 
-    public OrderAdapter(Context mCtx, List<DataWorkOrder> orderList) {
+    public OrderAdapter(Context mCtx, List<DataWorkOrder> orderList,String role) {
         this.mCtx = mCtx;
         this.orderList = orderList;
-
+        this.role = role;
 
     }
 
@@ -175,6 +175,7 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
         public OrderViewHolder(View itemView, Context mCtx, List<DataWorkOrder> orderList) {
             super(itemView);
             this.mCtx=mCtx;
+
             this.orderList=orderList;
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -230,12 +231,19 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
           DataWorkOrder  order =this.orderList.get(position);
 
             if (v.getId() ==imageView.getId()) {
+                if(role.equals( "Admin" ))
+                {
                 Intent intent=new Intent(mCtx, DrawingActivity.class);
                 intent.putExtra("filename",order.getId());
                 intent.putExtra("livefilepath",order.getDrawing());
                 intent.putExtra("pino",order.getPINo());
                 intent.putExtra("partyname",order.getPartyName());
                 this.mCtx.startActivity(intent);
+                }
+                else
+                {  Toast.makeText(mCtx, "you are not authorized", Toast.LENGTH_SHORT).show();
+
+                }
             }
             if (v.getId() == buttonCut.getId()) {
                 id=order.getId();
@@ -318,8 +326,14 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.OrderViewHo
 
 
             if (v.getId() ==itemView.getId()) {
-
+                if(role.equals( "Admin" ))
+                {
                 showUpdateDeleteDialog(order);
+                }
+                else
+                {  Toast.makeText(mCtx, "you are not authorized", Toast.LENGTH_SHORT).show();
+
+                }
             }
             return true;
         }

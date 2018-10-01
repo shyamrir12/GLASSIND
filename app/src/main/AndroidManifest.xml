@@ -17,21 +17,24 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".WorkOrder"
-            android:parentActivityName=".TrackOrderActivity" />
-        <activity android:name=".TrackOrderActivity" />
-        <activity
-            android:name=".DrawingActivity"
-            android:parentActivityName=".TrackOrderActivity" />
-        <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".LogInActivity">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".WorkOrder"
+            android:parentActivityName=".TrackOrderActivity" />
+        <activity android:name=".TrackOrderActivity"  android:parentActivityName=".AdminHomeActivity"/>
+        <activity
+            android:name=".DrawingActivity"
+            android:parentActivityName=".TrackOrderActivity" />
+        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".LogInActivity">
+
         </activity>
         <activity
             android:name=".AdminHomeActivity"

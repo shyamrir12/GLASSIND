@@ -8,10 +8,7 @@
             android:id="@+id/nav_track_order"
             android:icon="@drawable/ic_assignment_turned_in_black_24dp"
             android:title="Track Order" />
-        <item
-            android:id="@+id/nav_user_setting"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="User Setting" />
+
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_help_black_24dp"

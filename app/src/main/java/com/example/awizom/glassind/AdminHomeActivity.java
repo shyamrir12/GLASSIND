@@ -1,11 +1,13 @@
 package com.example.awizom.glassind;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -39,14 +41,16 @@ import java.util.List;
 public class AdminHomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     FirebaseAuth mAuth;
-    TextView email;
+    TextView email,profilehadder,userwelcome;
     RecyclerView recyclerView;
     ProgressDialog progressDialog ;
-    DatabaseReference datauser;
+    DatabaseReference datauser,datauserpro;
     List<UserProfile> userList;
     UserProfileAdapter adapter;
     UserProfile currentUserProfile;
-    String useremail;
+    String role;
+    Boolean active=false;
+    View header;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -66,7 +70,7 @@ public class AdminHomeActivity extends AppCompatActivity
 
         mAuth = FirebaseAuth.getInstance();
 
-        View header = navigationView.getHeaderView(0);
+        header = navigationView.getHeaderView(0);
         email = header.findViewById(R.id.textView);
         email.setText(  mAuth.getCurrentUser().getEmail() );
       /*  View hView = navigationView.inflateHeaderView(R.layout.nav_header_admin_home);
@@ -76,43 +80,52 @@ public class AdminHomeActivity extends AppCompatActivity
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        userwelcome=findViewById( R.id.textViewwelcomeuser );
 
-        getUserList();
-        getUser();
-        getSupportActionBar().setTitle(currentUserProfile.getRole());
+
+         getUser();
+
 
 
     }
     private void getUser() {
         try {
             //String res="";
-            useremail=mAuth.getCurrentUser().getEmail();
+
             progressDialog.setMessage("loading...");
             progressDialog.show();
-           datauser = FirebaseDatabase.getInstance().getReference("userprofile");
-            //without filter
-            // dataorder.addListenerForSingleValueEvent(valueEventListener);
-            Query query= FirebaseDatabase.getInstance().getReference("userprofile")
-                    .orderByChild("email")  .equalTo( useremail );
-            // query.addListenerForSingleValueEvent(valueEventListener);
-            query.addValueEventListener(new ValueEventListener() {
+            datauserpro =  FirebaseDatabase.getInstance().getReference("userprofile").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+            datauserpro.addValueEventListener(new ValueEventListener() {
 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               role= dataSnapshot.child( "role" ).getValue().toString();
+               active=Boolean.valueOf(  dataSnapshot.child( "active" ).getValue().toString());
+                    getSupportActionBar().setTitle("Glass Status Tracker "+role);
+                    profilehadder = header.findViewById(R.id.textViewprofile);
+                    profilehadder.setText(  role+" Profile" );
+                    if(role.equals( "Admin" ))
+                    {
+                        getUserList();
+                    }
+                    else
+                    {
+                        if (active==false)
+                        {
+                            userwelcome.setText( "Welcome\n"+email.getText().toString()+"\nUser is not Activated" );
+                            userwelcome.setVisibility( View.VISIBLE );
+                        }
+                        else
+                        {
 
-                   userList.clear();
-
-                    //iterating through all the nodes
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        //getting artist
-                        currentUserProfile=new UserProfile(  );
-                      currentUserProfile = postSnapshot.getValue(UserProfile.class);
-                        //adding artist to the list
-
+                            userwelcome.setText( "Welcome\n"+email.getText().toString()+"\nUser is Activated" );
+                            userwelcome.setVisibility( View.VISIBLE );
+                        }
                     }
 
+                    //iterating through all the nodes
                     progressDialog.dismiss();
-
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -138,10 +151,10 @@ public class AdminHomeActivity extends AppCompatActivity
             datauser = FirebaseDatabase.getInstance().getReference("userprofile");
             //without filter
             // dataorder.addListenerForSingleValueEvent(valueEventListener);
-            // Query query= FirebaseDatabase.getInstance().getReference("userprofile")
-            //   .orderByChild("id");
-            // query.addListenerForSingleValueEvent(valueEventListener);
-            datauser.addValueEventListener(new ValueEventListener() {
+             Query query= FirebaseDatabase.getInstance().getReference("userprofile")
+                     .orderByChild("role").equalTo("User");
+           // query.addListenerForSingleValueEvent(valueEventListener);
+            query.addValueEventListener(new ValueEventListener() {
 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -188,8 +201,6 @@ public class AdminHomeActivity extends AppCompatActivity
         }
 
 
-
-
     }
 
     @Override
@@ -220,10 +231,16 @@ public class AdminHomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_track_order) {
+if(active==true){
+    Intent intent=new Intent(this, TrackOrderActivity.class);
+    intent.putExtra("role",role);
+    this.startActivity(intent);
+}
 
-            startActivity(new Intent(this,TrackOrderActivity.class));
-
-        } else if (id == R.id.nav_user_setting) {
+else {
+    Toast.makeText(this, "you are not authorized", Toast.LENGTH_SHORT).show();
+}
+           //intent. startActivity(new Intent(this,TrackOrderActivity.class));
 
         }
         else if (id == R.id.nav_logout) {

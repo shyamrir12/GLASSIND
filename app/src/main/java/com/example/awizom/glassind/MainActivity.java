@@ -20,7 +20,7 @@ private  static int SPLASH_TIME_OUT=4000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent=new Intent(getApplicationContext(),TrackOrderActivity.class);
+                Intent intent=new Intent(getApplicationContext(),LogInActivity.class);
                 startActivity(intent);
                 finish();finish();
             }

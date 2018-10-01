@@ -65,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity implements  View.OnClickLi
     {
         //getting the specified artist reference
         datauserprofile = FirebaseDatabase.getInstance().getReference( "userprofile" );
-        String id = datauserprofile.push().getKey();
+        String id =FirebaseAuth.getInstance().getCurrentUser().getUid();
         String email=mAuth.getCurrentUser().getEmail();
         userProfile=new UserProfile( id, email,"User",false );
 
@@ -110,6 +110,8 @@ public class SignUpActivity extends AppCompatActivity implements  View.OnClickLi
                 if (task.isSuccessful()) {
 
                     addUserProfile();
+
+
                     finish();
                     startActivity( new Intent( SignUpActivity.this, AdminHomeActivity.class ) );
                 } else {

@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.awizom.glassind.Adapters.OrderAdapter;
@@ -55,10 +56,15 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
     String filename="";
     Button addorder,addexcelorder;
     String currentdateString;
+    String role;
+TextView textViewwelcomeorder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_order);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        role=getIntent().getStringExtra("role");
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         addorder=findViewById(R.id.order);
         addexcelorder=findViewById(R.id.excelorder);
@@ -69,26 +75,40 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
          currentdateString=formatter.format(date);
-
+         textViewwelcomeorder=findViewById( R.id. textViewwelcomeorder);
 
 
         getOrder();
+
         addorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(role.equals( "Admin" ))
                 showUpdateDeleteDialog();
+                else
+                    Toast.makeText(getApplicationContext(), "you are not authorized", Toast.LENGTH_SHORT).show();
             }
         });
         addexcelorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(role.equals( "Admin" ))
+                {
                 Intent seemore = new Intent(TrackOrderActivity.this,WorkOrder.class);
                 startActivity(seemore);
+                }
+                else
+                {  Toast.makeText(getApplicationContext(), "you are not authorized", Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });
     }
-
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu,menu);
@@ -133,9 +153,19 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
                         orderList.add(order);
                     }
                     //creating adapter
-                    adapter=new OrderAdapter(TrackOrderActivity.this, orderList);
+                    adapter=new OrderAdapter(TrackOrderActivity.this, orderList,role);
                    //attaching adapter to the listview
                     recyclerView.setAdapter(adapter);
+                    if(adapter.getItemCount()==0)
+                    {
+                        textViewwelcomeorder.setVisibility( View.VISIBLE );
+                        textViewwelcomeorder.setText( currentdateString+" \ndon't have any work order" );
+                        // today don't have any work order
+                    }
+                    else
+                    {
+                        textViewwelcomeorder.setVisibility( View.GONE );
+                    }
                     progressDialog.dismiss();
                      //when u want to see only perticuller update then add notify hear and
                     //creating adapter and attaching adapter to the listview at oncreate method
@@ -190,9 +220,10 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
                         orderList.add(order);
                     }
                     //creating adapter
-                    adapter=new OrderAdapter(TrackOrderActivity.this, orderList);
+                    adapter=new OrderAdapter(TrackOrderActivity.this, orderList,role);
                     //attaching adapter to the listview
                     recyclerView.setAdapter(adapter);
+
                     progressDialog.dismiss();
                 }
                 @Override
@@ -222,9 +253,19 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
                  orderList.add(order);
              }
              //creating adapter
-             adapter=new OrderAdapter(TrackOrderActivity.this, orderList);
+             adapter=new OrderAdapter(TrackOrderActivity.this, orderList,role);
              //attaching adapter to the listview
              recyclerView.setAdapter(adapter);
+             if(adapter.getItemCount()==0)
+             {
+                 textViewwelcomeorder.setVisibility( View.VISIBLE );
+                 textViewwelcomeorder.setText( currentdateString+" \ndon't have any work order" );
+                 // today don't have any work order
+             }
+             else
+             {
+                 textViewwelcomeorder.setVisibility( View.GONE );
+             }
              progressDialog.dismiss();
          }
 
@@ -451,6 +492,7 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
 
 
                     }
+
                 }
                 else {
 
@@ -468,13 +510,15 @@ public class TrackOrderActivity extends AppCompatActivity implements android.sup
                     }
                 }
                 //creating adapter
-                adapter=new OrderAdapter(TrackOrderActivity.this, orderList);
+                adapter=new OrderAdapter(TrackOrderActivity.this, orderList,role);
                 //attaching adapter to the listview
                 recyclerView.setAdapter(adapter);
+                textViewwelcomeorder.setVisibility( View.GONE );
                 progressDialog.dismiss();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
                 progressDialog.dismiss();
             }
         });
