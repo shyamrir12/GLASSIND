@@ -8,6 +8,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+
+//checking
 public class MainActivity extends AppCompatActivity {
 private  static int SPLASH_TIME_OUT=4000;
     @Override
